@@ -1,0 +1,25 @@
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+using AspNetCore.CacheOutput;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+namespace ContentApiCore.Filters
+{
+    public class OdhCacheOutputAttribute : CacheOutputAttribute
+    {
+        protected override bool IsCachingAllowed(FilterContext actionContext, bool anonymousOnly)
+        {
+            var environment = actionContext.HttpContext.RequestServices.GetService<IWebHostEnvironment>();
+            if (environment?.IsDevelopment() ?? false)
+            {
+                return false;
+            }
+            return base.IsCachingAllowed(actionContext, anonymousOnly);
+        }
+    }
+}

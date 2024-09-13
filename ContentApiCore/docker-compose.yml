@@ -1,0 +1,34 @@
+# SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+services:
+  api:
+    image: ${DOCKER_IMAGE:-odh-content-api}:${DOCKER_TAG:-latest}
+    build:
+      context: ../
+      dockerfile: ContentApiCore/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+      ASPNETCORE_ConnectionStrings__PgConnection: ${PG_CONNECTION}
+      ASPNETCORE_XmlConfig__XmldirWeather: ${XMLDIR}
+      ASPNETCORE_Xmldir__Xmldir: ${XMLDIR}
+      ASPNETCORE_S3ImageresizerConfig__Url: ${IMG_URL}
+      ASPNETCORE_S3ImageresizerConfig__BucketAccessPoint: ${S3_BUCKET_ACCESSPOINT}
+      ASPNETCORE_S3ImageresizerConfig__AccessKey: ${S3_IMAGEUPLOADER_ACCESSKEY}
+      ASPNETCORE_S3ImageresizerConfig__SecretKey: ${S3_IMAGEUPLOADER_SECRETKEY}
+      ASPNETCORE_OauthServerConfig__Authority: ${OAUTH_AUTORITY}
+      ASPNETCORE_ElasticSearchConfig__ElasticUrl: ${ELK_URL}
+      ASPNETCORE_ElasticSearchConfig__ElasticAuthtoken: ${ELK_TOKEN}
+      ASPNETCORE_JsonConfig__Jsondir: ${JSONPATH}
+      ASPNETCORE_DataBrowserConfig__Url: ${DATABROWSER_URL}
+      ASPNETCORE_FCMConfig__noi-communityapp__ServerKey: ${NOICOMMUNITY_SERVERKEY}
+      ASPNETCORE_FCMConfig__noi-communityapp__SenderId: ${NOICOMMUNITY_SENDERID}
+      ASPNETCORE_FCMConfig__noi-communityapp__ProjectName: ${NOICOMMUNITY_PROJECTNAME}
+      ASPNETCORE_FCMConfig__noi-communityapp__FCMServiceAccount: ${NOICOMMUNITY_FCMSERVICEACCOUNT}      
+      ASPNETCORE_NotifierConfig__idm-marketplace__Url: ${MARKETPLACE_PUSH_URL}
+      ASPNETCORE_NotifierConfig__idm-marketplace__User: ${MARKETPLACE_PUSH_USER}
+      ASPNETCORE_NotifierConfig__idm-marketplace__Password: ${MARKETPLACE_PUSH_PSWD}  
+    ports:
+      - "8001:80"

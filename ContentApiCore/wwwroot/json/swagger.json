@@ -1,0 +1,4913 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Open Data Hub Content Api",
+    "description": "Open Data Hub Content Api based on .Net Core with PostgreSQL",
+    "termsOfService": "https://opendatahub.readthedocs.io/en/latest/",
+    "contact": {
+      "name": "Open Data Hub Team",
+      "url": "https://opendatahub.com/",
+      "email": "help@opendatahub.com"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.tourism.testingmachine.eu"
+    }
+  ],
+  "paths": {
+    "/v1/Deprecated": {
+      "get": {
+        "tags": [
+          "Deprecated"
+        ],
+        "summary": "GET Generic Deprecated search of fields",
+        "parameters": [
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "description": "Pagenumber",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Elements per Page, (default:10)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "odhtype",
+            "in": "query",
+            "description": "Mandatory search trough Entities (metadata, accommodation, odhactivitypoi, event, webcam, measuringpoint, ltsactivity, ltspoi, ltsgastronomy, article ..... null = search trough all entities)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Mandatory search trough Entities (metadata, accommodation, odhactivitypoi, event, webcam, measuringpoint, ltsactivity, ltspoi, ltsgastronomy, article ..... null = search trough all entities)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Mandatory Select a field for the Distinct Query, example fields=Source, arrays are selected with a [*] example HasLanguage[*] / Features[*].Id  (Only one field supported). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "seed",
+            "in": "query",
+            "description": "Seed '1 - 10' for Random Sorting, '0' generates a Random Seed, 'null' disables Random Sorting, (default:null)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "getasarray",
+            "in": "query",
+            "description": "Get only first selected field as simple string Array",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "excludenulloremptyvalues",
+            "in": "query",
+            "description": "Exclude empty and null values from output",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Distinct": {
+      "get": {
+        "tags": [
+          "Distinct"
+        ],
+        "summary": "GET Generic Distinct search of fields",
+        "parameters": [
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "description": "Pagenumber",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Elements per Page, (default:10)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "odhtype",
+            "in": "query",
+            "description": "Mandatory search trough Entities (metadata, accommodation, odhactivitypoi, event, webcam, measuringpoint, ltsactivity, ltspoi, ltsgastronomy, article ..... )",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Mandatory search trough Entities (metadata, accommodation, odhactivitypoi, event, webcam, measuringpoint, ltsactivity, ltspoi, ltsgastronomy, article ..... )",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Mandatory Select a field for the Distinct Query, example fields=Source, arrays are selected with a [*] example HasLanguage[*] / Features[*].Id  (Only one field supported). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "seed",
+            "in": "query",
+            "description": "Seed '1 - 10' for Random Sorting, '0' generates a Random Seed, 'null' disables Random Sorting, (default:null)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "getasarray",
+            "in": "query",
+            "description": "Get only first selected field as simple string Array",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "excludenulloremptyvalues",
+            "in": "query",
+            "description": "Exclude empty and null values from output",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Example": {
+      "get": {
+        "tags": [
+          "Example"
+        ],
+        "summary": "GET Example List",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "description": "Pagenumber",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Elements per Page, (default:10)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "exampletype",
+            "in": "query",
+            "description": "Example Types Filter (Separator ',' List of ExampleTypes IDs), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "idlist",
+            "in": "query",
+            "description": "IDFilter (Separator ',' List of IDs), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "langfilter",
+            "in": "query",
+            "description": "Language filter (returns only data available in the selected Language, Separator ',' possible values: 'de,it,en,nl,sc,pl,fr,ru', 'null': Filter disabled)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "Active Filter (possible Values: 'true' only Active Data, 'false' only Disabled Data), (default:'null')",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "updatefrom",
+            "in": "query",
+            "description": "Returns data changed after this date Format (yyyy-MM-dd), (default: 'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "seed",
+            "in": "query",
+            "description": "Seed '1 - 10' for Random Sorting, '0' generates a Random Seed, 'null' disables Random Sorting, (default:null)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "publishedon",
+            "in": "query",
+            "description": "Published On Filter (Separator ',' List of publisher IDs), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Filter by Source (Separator ','), (Sources available 'idm','noi'...),(default: 'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "searchfilter",
+            "in": "query",
+            "description": "String to search for, Title in all languages are searched, (default: null) <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#searchfilter\" target=\"_blank\">Wiki searchfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawsort\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinkedJsonResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinkedJsonResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinkedJsonResult"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinkedJsonResult"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinkedJsonResult"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinkedJsonResult"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinkedJsonResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Example"
+        ],
+        "summary": "POST Insert new Example",
+        "requestBody": {
+          "description": "Example Object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleLinked"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleLinked"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleLinked"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleLinked"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Example/{id}": {
+      "get": {
+        "tags": [
+          "Example"
+        ],
+        "summary": "GET Example Single",
+        "operationId": "SingleExample",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Example",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinked"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinked"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinked"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinked"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinked"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinked"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleLinked"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Example"
+        ],
+        "summary": "PUT Modify existing Example",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Example Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Example Object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleLinked"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleLinked"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleLinked"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExampleLinked"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Example"
+        ],
+        "summary": "DELETE Example by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Example Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/ExampleTypes": {
+      "get": {
+        "tags": [
+          "Example"
+        ],
+        "summary": "GET ExampleTypes List",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "searchfilter",
+            "in": "query",
+            "description": "String to search for, Title in all languages are searched, (default: null) <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#searchfilter\" target=\"_blank\">Wiki searchfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawsort\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExampleTypes"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExampleTypes"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExampleTypes"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExampleTypes"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExampleTypes"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExampleTypes"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExampleTypes"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/ExampleTypes/{id}": {
+      "get": {
+        "tags": [
+          "Example"
+        ],
+        "summary": "GET ExampleTypes Single",
+        "operationId": "SingleExampleTypes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the ExampleType",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleTypes"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleTypes"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleTypes"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleTypes"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleTypes"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleTypes"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExampleTypes"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/FileUpload": {
+      "post": {
+        "tags": [
+          "FileUpload"
+        ],
+        "summary": " (Auth)",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "form": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/StringStringValuesKeyValuePair"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "form": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/FileUpload/Image": {
+      "post": {
+        "tags": [
+          "FileUpload"
+        ],
+        "summary": " (Auth)",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "form": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/StringStringValuesKeyValuePair"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "form": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/FileDelete/{filepath}": {
+      "delete": {
+        "tags": [
+          "FileUpload"
+        ],
+        "summary": " (Auth)",
+        "parameters": [
+          {
+            "name": "filepath",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/GeoShapes": {
+      "get": {
+        "tags": [
+          "Geo"
+        ],
+        "summary": "GET GeoShapes List",
+        "parameters": [
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "searchfilter",
+            "in": "query",
+            "description": "String to search for, Title in all languages are searched, (default: null) <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#searchfilter\" target=\"_blank\">Wiki searchfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawsort\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapes"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapes"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapes"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapes"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapes"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapes"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapes"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/GeoShapes/{id}": {
+      "get": {
+        "tags": [
+          "Geo"
+        ],
+        "summary": "GET GeoShape Single",
+        "operationId": "SingleShapes",
+        "parameters": [
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Tag",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapes"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapes"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapes"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapes"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapes"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapes"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapes"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/GeoConverter/KmlToGeoJson": {
+      "get": {
+        "tags": [
+          "GeoConverter"
+        ],
+        "summary": "Converts the KML file from the supplied URL to GeoJSON.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "The URL to the KML file.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/geo+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "GeoConverter"
+        ],
+        "summary": "Converts the KML provided as the body to GeoJSON.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "query",
+            "description": "The KML file content.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/GeoConverter/GpxToGeoJson": {
+      "get": {
+        "tags": [
+          "GeoConverter"
+        ],
+        "summary": "Converts the GPX file from the supplied URL to GeoJSON.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "The URL to the GPX file.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/geo+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "GeoConverter"
+        ],
+        "summary": "Converts the GPX provided as the body to GeoJSON.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "query",
+            "description": "The GPX file content.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/JsonLD/DetailInLD": {
+      "get": {
+        "tags": [
+          "JsonLD"
+        ],
+        "summary": "GET Detail Data in JSON LD Format (Schema.org Datatypes as output)",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Data Type to transform currently available: ('accommodation', 'gastronomy', 'event', 'recipe', 'poi', 'region', 'tv', 'municipality', 'district', 'skiarea') required",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Id",
+            "in": "query",
+            "description": "ID of the data to transform, required",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Output Language, standard EN",
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "idtoshow",
+            "in": "query",
+            "description": "ID to show on Json LD @id, not provided Id of ODH api call is taken",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "urltoshow",
+            "in": "query",
+            "description": "url to show on Json LD @id, not provided idtoshow is taken, idtoshow not provided url is filled with url of the data",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "imageurltoshow",
+            "in": "query",
+            "description": "image url to show on Json LD @image, not provided image url of data is taken",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "showid",
+            "in": "query",
+            "description": "Show the @id property in Json LD default value true",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Publisher": {
+      "get": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "GET Publishers List",
+        "parameters": [
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields available in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "idlist",
+            "in": "query",
+            "description": "IDFilter (Separator ',' List of IDs, 'null' = No Filter), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Source Filter (possible Values: 'lts','idm'), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "searchfilter",
+            "in": "query",
+            "description": "String to search for, Title in all languages are searched, (default: null) <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#searchfilter\" target=\"_blank\">Wiki searchfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawsort\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublisherLinked"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublisherLinked"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublisherLinked"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublisherLinked"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublisherLinked"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublisherLinked"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublisherLinked"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "POST Insert new Publisher",
+        "requestBody": {
+          "description": "PublisherLinked Object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherLinked"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherLinked"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherLinked"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherLinked"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Publisher/{id}": {
+      "get": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "GET Publisher Single",
+        "operationId": "SinglePublisher",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Publisher",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields available in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "localizationlanguage",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherLinked"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherLinked"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherLinked"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherLinked"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherLinked"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherLinked"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublisherLinked"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "PUT Modify existing Publisher",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Publisher Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Publisher Object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherLinked"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherLinked"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherLinked"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublisherLinked"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Publisher"
+        ],
+        "summary": "DELETE Publisher by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Publisher Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/PushResponse": {
+      "get": {
+        "tags": [
+          "PushResponse"
+        ],
+        "summary": "GET PushResponse List",
+        "parameters": [
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "idlist",
+            "in": "query",
+            "description": "IDFilter (Separator ',' List of IDs, 'null' = No Filter), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "publisher",
+            "in": "query",
+            "description": "publisher Filter (Separator ',' List of IDs, 'null' = No Filter), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "begindate",
+            "in": "query",
+            "description": "BeginDate of Events (Format: yyyy-MM-dd), (default: 'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "enddate",
+            "in": "query",
+            "description": "EndDate of Events (Format: yyyy-MM-dd), (default: 'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objectidlist",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "objecttypelist",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawsort\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushResponse"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushResponse"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushResponse"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushResponse"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PushResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/PushResponse/{id}": {
+      "get": {
+        "tags": [
+          "PushResponse"
+        ],
+        "summary": "GET PushResponse Single",
+        "operationId": "SinglePushResponse",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the PushResponse",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushResponse"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushResponse"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushResponse"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushResponse"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/PushResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Find": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "GET Search over all Entities",
+        "parameters": [
+          {
+            "name": "term",
+            "in": "query",
+            "description": "Term to Search for <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Search-over-all-Entities-in-ODH-Tourism-api\" target=\"_blank\">Wiki</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields available in the selected language ('null' all languages are displayed)",
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "odhtype",
+            "in": "query",
+            "description": "Restrict search to Entities (accommodation, odhactivitypoi, event, webcam, measuringpoint, ltsactivity, ltspoi, ltsgastronomy, article ..... )",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Restrict search to Entities (accommodation, odhactivitypoi, event, webcam, measuringpoint, ltsactivity, ltspoi, ltsgastronomy, article ..... )",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchbasetext",
+            "in": "query",
+            "description": "Search also trough base text (true/false), caution can slow down the search significantly",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "filteronfields",
+            "in": "query",
+            "description": "Search also on this fields, syntax analog to the fields filter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limitto",
+            "in": "query",
+            "description": "Limit search to n items per entity",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Filter": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "GET Search over all Entities",
+        "parameters": [
+          {
+            "name": "term",
+            "in": "query",
+            "description": "Term to Search for <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Search-over-all-Entities-in-ODH-Tourism-api\" target=\"_blank\">Wiki</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields available in the selected language ('null' all languages are displayed)",
+            "schema": {
+              "type": "string",
+              "default": "en"
+            }
+          },
+          {
+            "name": "odhtype",
+            "in": "query",
+            "description": "Restrict search to Entities (accommodation, odhactivitypoi, event, webcam, measuringpoint, ltsactivity, ltspoi, ltsgastronomy, article ..... )",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Restrict search to Entities (accommodation, odhactivitypoi, event, webcam, measuringpoint, ltsactivity, ltspoi, ltsgastronomy, article ..... )",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchbasetext",
+            "in": "query",
+            "description": "Search also trough base text (true/false), caution can slow down the search significantly",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "filteronfields",
+            "in": "query",
+            "description": "Search also on this fields, syntax analog to the fields filter",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limitto",
+            "in": "query",
+            "description": "Limit search to n items per entity",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JsonRaw"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Source": {
+      "get": {
+        "tags": [
+          "Source"
+        ],
+        "summary": "GET Sources List",
+        "parameters": [
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields available in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "idlist",
+            "in": "query",
+            "description": "IDFilter (Separator ',' List of IDs, 'null' = No Filter), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "typelist",
+            "in": "query",
+            "description": "Type Filter (Separator ',' Filter Sources by Type ('accommodation','event','odhactivitypoi','webcam','region','municipality','district','tourismassocation','weather','measuringpoint','weatherhistory','weatherforecast','accommodationroom','venue','article','eventshort','wineaward','tag','odhtag'), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "searchfilter",
+            "in": "query",
+            "description": "String to search for, Title in all languages are searched, (default: null) <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#searchfilter\" target=\"_blank\">Wiki searchfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawsort\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLinked"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLinked"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLinked"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLinked"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLinked"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLinked"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SourceLinked"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Source"
+        ],
+        "summary": "POST Insert new Source",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceLinked"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceLinked"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceLinked"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceLinked"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/Source/{id}": {
+      "get": {
+        "tags": [
+          "Source"
+        ],
+        "summary": "GET Source Single",
+        "operationId": "SingleSource",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Source",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields available in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "localizationlanguage",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceLinked"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceLinked"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceLinked"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceLinked"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceLinked"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceLinked"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceLinked"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Source"
+        ],
+        "summary": "PUT Modify existing Source",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Source Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Source Object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceLinked"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceLinked"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceLinked"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SourceLinked"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Source"
+        ],
+        "summary": "DELETE Source by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Source Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ContactInfos": {
+        "type": "object",
+        "properties": {
+          "Address": {
+            "type": "string",
+            "description": "Street Address",
+            "nullable": true
+          },
+          "Region": {
+            "type": "string",
+            "description": "Region (Province / State / Departement / Canton etc...",
+            "nullable": true
+          },
+          "RegionCode": {
+            "type": "string",
+            "description": "Regioncode",
+            "nullable": true
+          },
+          "Area": {
+            "type": "string",
+            "description": "Area (Additional Area Name)",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "nullable": true
+          },
+          "ZipCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "CountryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "CountryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Surname": {
+            "type": "string",
+            "nullable": true
+          },
+          "Givenname": {
+            "type": "string",
+            "nullable": true
+          },
+          "NamePrefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "Phonenumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "Faxnumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "Url": {
+            "type": "string",
+            "nullable": true
+          },
+          "Language": {
+            "type": "string",
+            "nullable": true
+          },
+          "CompanyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Vat": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tax": {
+            "type": "string",
+            "nullable": true
+          },
+          "LogoUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Detail": {
+        "type": "object",
+        "properties": {
+          "Header": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubHeader": {
+            "type": "string",
+            "nullable": true
+          },
+          "IntroText": {
+            "type": "string",
+            "nullable": true
+          },
+          "BaseText": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "AdditionalText": {
+            "type": "string",
+            "nullable": true
+          },
+          "MetaTitle": {
+            "type": "string",
+            "nullable": true
+          },
+          "MetaDesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "GetThereText": {
+            "type": "string",
+            "nullable": true
+          },
+          "Language": {
+            "type": "string",
+            "nullable": true
+          },
+          "Keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ParkingInfo": {
+            "type": "string",
+            "nullable": true
+          },
+          "PublicTransportationInfo": {
+            "type": "string",
+            "nullable": true
+          },
+          "AuthorTip": {
+            "type": "string",
+            "nullable": true
+          },
+          "SafetyInfo": {
+            "type": "string",
+            "nullable": true
+          },
+          "EquipmentInfo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExampleLinked": {
+        "type": "object",
+        "properties": {
+          "Self": {
+            "type": "string",
+            "description": "generated field",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ODHTags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExampleTypes"
+            },
+            "description": "generated field",
+            "nullable": true,
+            "readOnly": true
+          },
+          "_Meta": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "FirstImport": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "LastChange": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Source": {
+            "type": "string",
+            "nullable": true
+          },
+          "Active": {
+            "type": "boolean"
+          },
+          "Shortname": {
+            "type": "string",
+            "nullable": true
+          },
+          "Mapping": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "nullable": true
+          },
+          "HasLanguage": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "PublishedOn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Detail": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Detail"
+            },
+            "nullable": true
+          },
+          "GpsInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GpsInfo"
+            },
+            "nullable": true
+          },
+          "GpsPoints": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/GpsInfo"
+            },
+            "description": "generated field",
+            "nullable": true,
+            "readOnly": true,
+            "deprecated": true
+          },
+          "ImageGallery": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageGallery"
+            },
+            "nullable": true
+          },
+          "ContactInfos": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ContactInfos"
+            },
+            "nullable": true
+          },
+          "ExampleTypeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "LicenseInfo": {
+            "$ref": "#/components/schemas/LicenseInfo"
+          },
+          "AdditionalProperties": {
+            "type": "object",
+            "additionalProperties": { },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExampleLinkedJsonResult": {
+        "type": "object",
+        "properties": {
+          "TotalResults": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "TotalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "CurrentPage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PreviousPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "NextPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "Seed": {
+            "type": "string",
+            "nullable": true
+          },
+          "Items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExampleLinked"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExampleTypes": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Self": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GeoShapes": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "code_rip": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "code_reg": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "code_prov": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "code_cm": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "code_uts": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "istatnumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "abbrev": {
+            "type": "string",
+            "nullable": true
+          },
+          "type_uts": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "name_alternative": {
+            "type": "string",
+            "nullable": true
+          },
+          "shape_leng": {
+            "type": "number",
+            "format": "float"
+          },
+          "shape_area": {
+            "type": "number",
+            "format": "float"
+          },
+          "geom": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GpsInfo": {
+        "type": "object",
+        "properties": {
+          "Gpstype": {
+            "enum": [
+              "position",
+              "viewpoint",
+              "startingandarrivalpoint",
+              "startingpoint",
+              "arrivalpoint",
+              "carparking",
+              "halfwaypoint",
+              "valleystationpoint",
+              "middlestationpoint",
+              "mountainstationpoint"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "Latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "Longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "Altitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "AltitudeUnitofMeasure": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpStatusCode": {
+        "enum": [
+          "Continue",
+          "SwitchingProtocols",
+          "Processing",
+          "EarlyHints",
+          "OK",
+          "Created",
+          "Accepted",
+          "NonAuthoritativeInformation",
+          "NoContent",
+          "ResetContent",
+          "PartialContent",
+          "MultiStatus",
+          "AlreadyReported",
+          "IMUsed",
+          "MultipleChoices",
+          "MovedPermanently",
+          "Found",
+          "SeeOther",
+          "NotModified",
+          "UseProxy",
+          "Unused",
+          "RedirectKeepVerb",
+          "PermanentRedirect",
+          "BadRequest",
+          "Unauthorized",
+          "PaymentRequired",
+          "Forbidden",
+          "NotFound",
+          "MethodNotAllowed",
+          "NotAcceptable",
+          "ProxyAuthenticationRequired",
+          "RequestTimeout",
+          "Conflict",
+          "Gone",
+          "LengthRequired",
+          "PreconditionFailed",
+          "RequestEntityTooLarge",
+          "RequestUriTooLong",
+          "UnsupportedMediaType",
+          "RequestedRangeNotSatisfiable",
+          "ExpectationFailed",
+          "MisdirectedRequest",
+          "UnprocessableEntity",
+          "Locked",
+          "FailedDependency",
+          "UpgradeRequired",
+          "PreconditionRequired",
+          "TooManyRequests",
+          "RequestHeaderFieldsTooLarge",
+          "UnavailableForLegalReasons",
+          "InternalServerError",
+          "NotImplemented",
+          "BadGateway",
+          "ServiceUnavailable",
+          "GatewayTimeout",
+          "HttpVersionNotSupported",
+          "VariantAlsoNegotiates",
+          "InsufficientStorage",
+          "LoopDetected",
+          "NotExtended",
+          "NetworkAuthenticationRequired"
+        ],
+        "type": "string"
+      },
+      "ImageGallery": {
+        "type": "object",
+        "properties": {
+          "ImageName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "Width": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Height": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ImageSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "ImageTitle": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ImageDesc": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "ImageAltText": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "IsInGallery": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "ListPosition": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ValidFrom": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ValidTo": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "CopyRight": {
+            "type": "string",
+            "nullable": true
+          },
+          "License": {
+            "type": "string",
+            "nullable": true
+          },
+          "LicenseHolder": {
+            "type": "string",
+            "nullable": true
+          },
+          "ImageTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "JsonRaw": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LicenseInfo": {
+        "type": "object",
+        "properties": {
+          "License": {
+            "enum": [
+              "CC0",
+              "CC-BY",
+              "Closed"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "LicenseHolder": {
+            "type": "string",
+            "nullable": true
+          },
+          "Author": {
+            "type": "string",
+            "nullable": true
+          },
+          "ClosedData": {
+            "type": "boolean",
+            "description": "readonly field",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Metadata": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Type": {
+            "enum": [
+              "accommodation",
+              "accommodationroom",
+              "event",
+              "odhactivitypoi",
+              "measuringpoint",
+              "webcam",
+              "article",
+              "venue",
+              "eventshort",
+              "experiencearea",
+              "region",
+              "metaregion",
+              "tourismassociation",
+              "municipality",
+              "district",
+              "area",
+              "wineaward",
+              "skiarea",
+              "skiregion",
+              "odhtag",
+              "publisher",
+              "tag",
+              "weatherhistory",
+              "weather",
+              "weatherdistrict",
+              "weatherforecast",
+              "weatherrealtime",
+              "snowreport",
+              "odhmetadata",
+              "package",
+              "ltsactivity",
+              "ltspoi",
+              "ltsgastronomy"
+            ],
+            "type": "string",
+            "nullable": true
+          },
+          "LastUpdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Source": {
+            "type": "string",
+            "nullable": true
+          },
+          "Reduced": {
+            "type": "boolean"
+          },
+          "UpdateInfo": {
+            "$ref": "#/components/schemas/UpdateInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotifierResponse": {
+        "type": "object",
+        "properties": {
+          "Response": {
+            "nullable": true
+          },
+          "HttpStatusCode": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "Service": {
+            "type": "string",
+            "nullable": true
+          },
+          "Success": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PGCRUDResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "odhtype": {
+            "type": "string",
+            "nullable": true
+          },
+          "operation": {
+            "type": "string",
+            "nullable": true
+          },
+          "updated": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "created": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "deleted": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "error": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "errorreason": {
+            "type": "string",
+            "nullable": true
+          },
+          "compareobject": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "objectchanged": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "objectimagechanged": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "pushchannels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "changes": {
+            "nullable": true
+          },
+          "pushed": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/NotifierResponse"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "Instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "PublisherLinked": {
+        "type": "object",
+        "properties": {
+          "_Meta": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "Self": {
+            "type": "string",
+            "description": "generated field",
+            "nullable": true,
+            "readOnly": true
+          },
+          "LicenseInfo": {
+            "$ref": "#/components/schemas/LicenseInfo"
+          },
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Key": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "FirstImport": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "LastChange": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Url": {
+            "type": "string",
+            "nullable": true
+          },
+          "PushConfig": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PushConfig"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PushConfig": {
+        "type": "object",
+        "properties": {
+          "PathParam": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "BaseUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "PushApiUrl": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PushObject": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PushResponse": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Publisher": {
+            "type": "string",
+            "nullable": true
+          },
+          "Date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Result": {
+            "nullable": true
+          },
+          "PushObject": {
+            "$ref": "#/components/schemas/PushObject"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SourceLinked": {
+        "type": "object",
+        "properties": {
+          "_Meta": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "Self": {
+            "type": "string",
+            "description": "generated field",
+            "nullable": true,
+            "readOnly": true
+          },
+          "LicenseInfo": {
+            "$ref": "#/components/schemas/LicenseInfo"
+          },
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Key": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Description": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "FirstImport": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "LastChange": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Url": {
+            "type": "string",
+            "nullable": true
+          },
+          "Interfaces": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Interfaces that are offered by the source",
+            "nullable": true
+          },
+          "Types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StringStringValuesKeyValuePair": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "string",
+            "nullable": true
+          },
+          "Value": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateInfo": {
+        "type": "object",
+        "properties": {
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdateSource": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "tokenUrl": "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/token",
+            "scopes": { }
+          },
+          "clientCredentials": {
+            "tokenUrl": "https://auth.opendatahub.testingmachine.eu/auth/realms/noi/protocol/openid-connect/token",
+            "scopes": { }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Example",
+      "description": "Examples Api"
+    }
+  ]
+}

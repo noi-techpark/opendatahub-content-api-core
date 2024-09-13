@@ -1,0 +1,22 @@
+services:
+  api:
+    image: ${DOCKER_IMAGE}:${DOCKER_TAG}
+    environment:
+      ASPNETCORE_URLS: http://+:80
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+      ASPNETCORE_ConnectionStrings__PgConnection: ${PG_CONNECTION}
+      ASPNETCORE_XmlConfig__Xmldir: ${XMLDIR}
+      ASPNETCORE_XmlConfig__XmldirWeather: ${XMLDIR}
+      ASPNETCORE_S3ImageresizerConfig__Url: ${IMG_URL}
+      ASPNETCORE_S3ImageresizerConfig__DocUrl: ${DOC_URL}
+      ASPNETCORE_S3ImageresizerConfig__BucketAccessPoint: ${S3_BUCKET_ACCESSPOINT}
+      ASPNETCORE_S3ImageresizerConfig__AccessKey: ${S3_IMAGEUPLOADER_ACCESSKEY}
+      ASPNETCORE_S3ImageresizerConfig__SecretKey: ${S3_IMAGEUPLOADER_SECRETKEY}
+      ASPNETCORE_OauthServerConfig__Authority: ${OAUTH_AUTORITY}
+      ASPNETCORE_ElasticSearchConfig__ElasticUrl: ${ELK_URL}
+      ASPNETCORE_ElasticSearchConfig__ElasticAuthtoken: ${ELK_TOKEN}
+      ASPNETCORE_JsonConfig__Jsondir: ${JSONPATH}
+      ASPNETCORE_DataBrowserConfig__Url: ${DATABROWSER_URL}  
+    restart: unless-stopped
+    ports:
+      - "${SERVER_PORT}:80"
