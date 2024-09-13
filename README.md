@@ -10,7 +10,6 @@ Core Components of the Opendatahub Content Api with Examples.
 
 [![REUSE Compliance](https://github.com/noi-techpark/opendatahub-content-api-core/actions/workflows/reuse.yml/badge.svg)](https://github.com/noi-techpark/opendatahub-content-api-core/wiki/REUSE#badges)
 [![CI/CD API](https://github.com/noi-techpark/opendatahub-content-api-core/actions/workflows/main_api.yml/badge.svg)](https://github.com/noi-techpark/opendatahub-content-api-core/actions/workflows/main_api.yml)
-[![CI/CD Importer](https://github.com/noi-techpark/opendatahub-content-api-core/actions/workflows/main_importer.yml/badge.svg)](https://github.com/noi-techpark/opendatahub-content-api-core/actions/workflows/main_importer.yml)
 
 ## Project Goals/Requirements:
 
@@ -39,6 +38,27 @@ Api to retrieve Content Data
 ### Helper
 
 Class Library with Extension Methods and other Helper Methods
+
+### RawQueryParser
+
+Class Library in F# which implements the rawfilter, rawsort api functionality
+
+### GeoConverter
+
+Class Library which offers some kml/gpx to geojson Converters
+
+### JsonLDTransformer
+
+Class Library with some Helpers to generates JsonLD schema.org Datatypes
+
+### OdhNotifier
+
+Class Library to push Data Changes to an external Api
+
+### PushServer
+
+Class Library with Helpers to generate Firebase Cloud Messages
+
 
 ## Database
 
@@ -82,8 +102,6 @@ Set the needed environment variables
 * S3_IMAGEUPLOADER_ACCESSKEY; (S3 Bucket for Image Upload accesskey)
 * S3_IMAGEUPLOADER_SECRETKEY; (S3 Bucket for Image Upload secretkey)
 * OAUTH_AUTORITY; (Oauth Server Authority URL)
-* ELK_URL; (Serilog Elasticsearch Sink Elastic URL)
-* ELK_TOKEN; (Serilog Elasticsearch Access Token)
 
 ### using Docker
 
@@ -92,7 +110,7 @@ go into \ContentApiCore\ folder \
 
 ### using .Net Core CLI
 
-Install .Net Core SDK 5\
+Install .Net Core SDK 8\
 go into \ContentApiCore\ folder \
 `dotnet run`
 starts the application on 
