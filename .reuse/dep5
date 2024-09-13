@@ -3,7 +3,7 @@ Upstream-Name: opendatahub-content-api-core
 Upstream-Contact: NOI Techpark <digital@noi.bz.it>
 Source: https://github.com/noi-techpark/opendatahub-content-api-core
 
-Files: .github/* infrastructure/* .gitignore .pre-commit-config.yaml .dockerignore .env.example .gitmodules docker-compose.dcproj OdhApiCore.sln */*.csproj */*.fsproj */appsettings.* */Dockerfile */Properties/*.json OdhApiImporter/json/* OdhApiCoreTests/xunit.runner.json OdhApiCore/Pages/Index.cshtml OdhApiCore/wwwroot/images/* OdhApiCore/wwwroot/json/* OdhApiCore/wwwroot/favicon.ico OdhApiCore/docker/* LCS/**/ConnectedService.json CDB/**/ConnectedService.json GeoConverterTests/Files/*
+Files: .github/* infrastructure/* .gitignore .pre-commit-config.yaml .dockerignore .env.example .gitmodules docker-compose.dcproj opendatahub-content-api-core.sln */*.csproj */*.fsproj */appsettings.* */Dockerfile */Properties/*.json ContentApiCoreTests/xunit.runner.json ContentApiCore/wwwroot/images/* ContentApiCore/wwwroot/json/* ContentApiCore/docker/* GeoConverterTests/Files/*
 Copyright: (c) NOI Techpark <digital@noi.bz.it>
 License: CC0-1.0
 
