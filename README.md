@@ -136,13 +136,83 @@ CREATE EXTENSION postgis;
 
 #### Quick start create the needed Tables on Postgres
 
-Publisher Table  
+Publisher Table 
+needs function text2ts, calculate_access_array
+```sql
+CREATE TABLE public.publishers (
+	id varchar(100) NOT NULL,
+	"data" jsonb NULL,
+	gen_licenseinfo_closeddata bool GENERATED ALWAYS AS ((data #> '{LicenseInfo,ClosedData}'::text[])::boolean) STORED NULL,
+	gen_lastchange timestamp GENERATED ALWAYS AS (text2ts(data #>> '{LastChange}'::text[])) STORED NULL,
+	gen_shortname text GENERATED ALWAYS AS (data #>> '{Shortname}'::text[]) STORED NULL,
+	gen_source text GENERATED ALWAYS AS (data #>> '{_Meta,Source}'::text[]) STORED NULL,
+	gen_reduced bool GENERATED ALWAYS AS ((data #> '{_Meta,Reduced}'::text[])::boolean) STORED NULL,
+	gen_access_role _text GENERATED ALWAYS AS (calculate_access_array(data #>> '{_Meta,Source}'::text[], (data #> '{LicenseInfo,ClosedData}'::text[])::boolean) STORED NULL,
+	CONSTRAINT publishers_pkey PRIMARY KEY (id)
+);
+```
 
 Source Table  
+needs function text2ts, calculate_access_array
+```sql
+CREATE TABLE public.sources (
+	id varchar(100) NOT NULL,
+	"data" jsonb NULL,
+	gen_licenseinfo_closeddata bool GENERATED ALWAYS AS ((data #> '{LicenseInfo,ClosedData}'::text[])::boolean) STORED NULL,
+	gen_lastchange timestamp GENERATED ALWAYS AS (text2ts(data #>> '{LastChange}'::text[])) STORED NULL,
+	gen_shortname text GENERATED ALWAYS AS (data #>> '{Shortname}'::text[]) STORED NULL,
+	gen_source text GENERATED ALWAYS AS (data #>> '{_Meta,Source}'::text[]) STORED NULL,
+	gen_reduced bool GENERATED ALWAYS AS ((data #> '{_Meta,Reduced}'::text[])::boolean) STORED NULL,
+	gen_access_role _text GENERATED ALWAYS AS (calculate_access_array(data #>> '{_Meta,Source}'::text[], (data #> '{LicenseInfo,ClosedData}'::text[])::boolean)) STORED NULL,
+	CONSTRAINT sources_pkey PRIMARY KEY (id)
+);
+```
 
 Raw Table  
+needs function is_valid_jsonb, calculate_access_array_rawdata
+```sql
+CREATE TABLE public.rawdata (
+	id serial4 NOT NULL,
+	"type" varchar(50) NULL,
+	datasource varchar(150) NULL,
+	sourceinterface varchar(150) NULL,
+	sourceurl varchar(150) NULL,
+	sourceid varchar(150) NULL,
+	importdate timestamp NULL,
+	raw text NULL,
+	license varchar(150) NULL,
+	rawformat varchar(150) NULL,
+	"data" jsonb GENERATED ALWAYS AS (is_valid_jsonb(raw)) STORED NULL,
+	gen_access_role _text GENERATED ALWAYS AS (calculate_access_array_rawdata(datasource::text, license::text)) STORED NULL,
+	CONSTRAINT rawdata_pkey PRIMARY KEY (id)
+);
+CREATE INDEX idx_rawdata_typelic ON public.rawdata USING btree (type, license, sourceid, id);
+CREATE INDEX rawdata_type_idx ON public.rawdata USING btree (type);
+
+```
 
 Example Table  
+needs function text2ts, json_array_to_pg_array, calculate_access_array
+```sql
+CREATE TABLE public.examples (
+	id varchar(100) NOT NULL,
+	"data" jsonb NULL,
+	gen_licenseinfo_closeddata bool GENERATED ALWAYS AS ((data #> '{LicenseInfo,ClosedData}'::text[])::boolean) STORED NULL,
+	gen_active bool GENERATED ALWAYS AS ((data #> '{Active}'::text[])::boolean) STORED NULL,
+	gen_haslanguage _text GENERATED ALWAYS AS (json_array_to_pg_array(data #> '{HasLanguage}'::text[])) STORED NULL,
+	gen_lastchange timestamp GENERATED ALWAYS AS (text2ts(data #>> '{LastChange}'::text[])) STORED NULL,
+	gen_shortname text GENERATED ALWAYS AS (data #>> '{Shortname}'::text[]) STORED NULL,
+	gen_type _text GENERATED ALWAYS AS (json_array_to_pg_array(data #> '{ExampleTypeIds}'::text[])) STORED NULL,
+	gen_latitude float8 GENERATED ALWAYS AS ((data #> '{GpsPoints,position,Latitude}'::text[])::double precision) STORED NULL,
+	gen_longitude float8 GENERATED ALWAYS AS ((data #> '{GpsPoints,position,Longitude}'::text[])::double precision) STORED NULL,
+	gen_position public.geometry GENERATED ALWAYS AS (st_setsrid(st_makepoint((data #> '{GpsPoints,position,Longitude}'::text[])::double precision, (data #> '{GpsPoints,position,Latitude}'::text[])::double precision), 4326)) STORED NULL,
+	gen_publishedon _text GENERATED ALWAYS AS (json_array_to_pg_array(data #> '{PublishedOn}'::text[])) STORED NULL,
+	gen_source text GENERATED ALWAYS AS (data #>> '{_Meta,Source}'::text[]) STORED NULL,
+	gen_reduced bool GENERATED ALWAYS AS ((data #> '{_Meta,Reduced}'::text[])::boolean) STORED NULL,
+	gen_access_role _text GENERATED ALWAYS AS (calculate_access_array(data #>> '{_Meta,Source}'::text[], (data #> '{LicenseInfo,ClosedData}'::text[])::boolean)) STORED NULL,
+	CONSTRAINT examples_pkey PRIMARY KEY (id)
+);
+```
 
 #### How to create generated columns on Postgres
 
