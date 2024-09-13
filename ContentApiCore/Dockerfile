@@ -18,7 +18,7 @@ RUN dotnet build ContentApiCore.csproj -c Release -o /app
 
 FROM build AS test
 WORKDIR /src
-RUN dotnet test --filter Category!=Integration ContentApiCore.sln
+RUN dotnet test --filter Category!=Integration opendatahub-content-api-core.sln
 
 FROM build AS publish
 RUN dotnet publish ContentApiCore.csproj -c Release -o /app/publish
