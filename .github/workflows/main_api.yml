@@ -25,9 +25,9 @@ jobs:
         dotnet-version: '8.0.x'
         dotnet-quality: 'preview'
     - name: Restore dependencies
-      run: dotnet restore ContentApiCore.sln
-    - name: Build ContentApiCore Solution
-      run: dotnet build ContentApiCore.sln --no-restore
+      run: dotnet restore opendatahub-content-api-core.sln
+    - name: Build opendatahub-content-api-core Solution
+      run: dotnet build opendatahub-content-api-core.sln --no-restore
     - name: Test
       run: dotnet test ContentApiCore --filter Category!=Integration
 
