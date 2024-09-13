@@ -134,7 +134,17 @@ CREATE EXTENSION pg_trgm;
 CREATE EXTENSION postgis;
 ```
 
-Create generated columns on Postgres
+#### Quick start create the needed Tables on Postgres
+
+Publisher Table  
+
+Source Table  
+
+Raw Table  
+
+Example Table  
+
+#### How to create generated columns on Postgres
 
 * bool
 
@@ -525,3 +535,38 @@ Then install the pre-commit hook via the config file by running:
 ```bash
 pre-commit install
 ```
+
+### KEYCLOAK AUTHORIZATION
+
+How to use a Keycloak Client and configure the permissions
+
+This project uses by default a client named ```opendatahub-content-api```
+
+The client has enabled
+- Client authentication
+- Authorization
+- Authentication flow: 
+     - Standard flow
+     - Direct access grants 
+     - Service account roles.
+- A client secret is also used.
+
+#### Authorization Services
+
+Resouces  
+Api Endpoints
+
+Scopes  
+Default Scopes
+- Read
+- Update
+- Create
+- Delete
+
+Policies  
+Role Based Policy which is used in a Permission
+
+Permissions  
+Permission of a User on a Resource
+
+
