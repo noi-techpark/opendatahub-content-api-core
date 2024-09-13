@@ -10,19 +10,3 @@ License: CC0-1.0
 Files: ContentApiCore/wwwroot/*/*.min.* ContentApiCore/pages/Index.cshtml
 Copyright: (c) NOI Techpark <digital@noi.bz.it>
 License: AGPL-3.0-or-later
-
-Files: ContentApiCore/wwwroot/lib/bootstrap/*
-Copyright: 2011-2016 Twitter, Inc.
-License: MIT
-
-Files: ContentApiCore/wwwroot/lib/jquery/*
-Copyright: JS Foundation and other contributors
-License: MIT
-
-Files: ContentApiCore/wwwroot/lib/jquery-validation/*
-Copyright: 2017 Jörn Zaefferer
-License: MIT
-
-Files: ContentApiCore/wwwroot/lib/jquery-validation-unobtrusive/*
-Copyright: Microsoft Corporation. All rights reserved.
-License: MIT
