@@ -23,7 +23,7 @@ namespace DataModel
             AdditionalProperties = new Dictionary<string, dynamic>();
         }
 
-        public Metadata _Meta { get; set; }
+        public Metadata? _Meta { get; set; }
         public string Id { get; set; }
         public DateTime? FirstImport { get; set; }
         public DateTime? LastChange { get; set; }
@@ -34,7 +34,7 @@ namespace DataModel
         public ICollection<string>? HasLanguage { get; set; }        
         public ICollection<string>? PublishedOn { get; set; }
         public IDictionary<string, Detail> Detail { get; set; }
-        public ICollection<GpsInfo> GpsInfo { get; set; }
+        public ICollection<GpsInfo>? GpsInfo { get; set; }
 
         [SwaggerDeprecated("Deprecated, use GpsInfo")]
         [SwaggerSchema(Description = "generated field", ReadOnly = true)]
@@ -50,7 +50,7 @@ namespace DataModel
         public IDictionary<string, ContactInfos> ContactInfos { get; set; }
 
         public ICollection<string>? ExampleTypeIds { get; set; }
-        public LicenseInfo LicenseInfo { get; set; }
+        public LicenseInfo? LicenseInfo { get; set; }
 
         public IDictionary<string, dynamic>? AdditionalProperties { get; set; }
     }

@@ -93,7 +93,7 @@ namespace Helper.Identity
 
             var body = new Dictionary<string, string>();
             body.Add("grant_type", "urn:ietf:params:oauth:grant-type:uma-ticket");
-            body.Add("audience", "odh-tourism-api");
+            body.Add("audience", "opendatahub-content-api");
             body.Add("response_mode", "permissions");
 
             using (var client = new HttpClient())

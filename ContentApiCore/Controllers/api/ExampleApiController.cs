@@ -329,7 +329,7 @@ namespace ContentApiCore.Controllers.api
 
                 example.TrimStringProperties();
 
-                return await UpsertData<ExampleLinked>(example, new DataInfo("example", CRUDOperation.Create), new CompareConfig(true, true), new CRUDConstraints(additionalfilter, UserRolesToFilter));
+                return await UpsertData<ExampleLinked>(example, new DataInfo("examples", CRUDOperation.Create), new CompareConfig(true, true), new CRUDConstraints(additionalfilter, UserRolesToFilter));
             });
         }
 
