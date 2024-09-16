@@ -606,7 +606,7 @@ Then install the pre-commit hook via the config file by running:
 pre-commit install
 ```
 
-### KEYCLOAK AUTHORIZATION
+### KeyCloak Authentication and Authorization
 
 How to use a Keycloak Client and configure the permissions
 
@@ -624,7 +624,7 @@ The client has enabled
 #### Authorization Services
 
 Resouces  
-Api Endpoints
+Configure Api Endpoints
 
 Scopes  
 Default Scopes
@@ -634,9 +634,10 @@ Default Scopes
 - Delete
 
 Policies  
-Role Based Policy which is used in a Permission
+Policy which is used in a Permission to grant access on the resource. 
+Normally we use Role Based Policies here.
 
 Permissions  
-Permission of a User on a Resource
+Effective Permission of a User on a Resource. Link between Resource and Polies and allowed Scope.
 
 
