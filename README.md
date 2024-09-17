@@ -214,6 +214,16 @@ CREATE TABLE public.examples (
 );
 ```
 
+ExampleTypes Table  
+Here no access Control is needed so no gen_access_role present
+```sql
+CREATE TABLE public.exampletypes (
+	id varchar(100) NOT NULL,
+	"data" jsonb NULL,	
+	CONSTRAINT exampletypes_pkey PRIMARY KEY (id)
+);
+```
+
 #### How to create generated columns on Postgres
 
 * bool
