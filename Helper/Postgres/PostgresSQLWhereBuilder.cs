@@ -186,7 +186,7 @@ namespace Helper
 
             return query
                 .IdUpperFilter(idlist)
-                .When(typelist.Count > 0, q => q.ArticleTypeFilterOr_GeneratedColumn(typelist))
+                .When(typelist.Count > 0, q => q.TypeFilterOr_GeneratedColumn(typelist))
                 .When(languagelist.Count > 0, q => q.HasLanguageFilterAnd_GeneratedColumn(languagelist)) //.HasLanguageFilter(languagelist)
                 .ActiveFilter_GeneratedColumn(activefilter)         //OK GENERATED COLUMNS //.ActiveFilter(activefilter)
                 .PublishedOnFilter_GeneratedColumn(publishedonlist)   //.PublishedOnFilter(publishedonlist)

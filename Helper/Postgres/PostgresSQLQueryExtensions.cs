@@ -1136,13 +1136,13 @@ namespace Helper
         });
 
         //Filter on Generated Field gen_articletype OR
-        public static Query ArticleTypeFilterOr_GeneratedColumn(this Query query, IReadOnlyCollection<string> list) =>
+        public static Query TypeFilterOr_GeneratedColumn(this Query query, IReadOnlyCollection<string> list) =>
         query.Where(q =>
         {
             foreach (var item in list)
             {
                 q = q.OrWhereRaw(
-                    "gen_articletype @> array\\[$$\\]", item.ToLower()
+                    "gen_type @> array\\[$$\\]", item.ToLower()
                 );
             }
             return q;
@@ -1168,7 +1168,7 @@ namespace Helper
                 )
             );
 
-        //Filter on Generated Field gen_odhactive 
+        //Filter on Generated Field gen_hasimage 
         public static Query HasImage_GeneratedColumn(this Query query, bool? odhactive) =>
             query.When(
                 odhactive != null,
