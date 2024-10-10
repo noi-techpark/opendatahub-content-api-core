@@ -27,9 +27,10 @@ Core Components of the Opendatahub Content Api with Examples.
 
 ## Project Structure
 
-### DataModel
+### ContentApiModels
 
-Definition of all Models
+Definition of all Models. Uses the nuget package https://www.nuget.org/packages/opendatahub-datamodel-tourism/ 
+Custom Data models are added here
 
 ### ContentApiCore
 
