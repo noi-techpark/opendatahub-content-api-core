@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModel", "DataModel\DataModel.csproj", "{B380784A-025B-4983-9FC2-6282759AB38F}"
-EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "RawQueryParser", "RawQueryParser\RawQueryParser.fsproj", "{AFEF98C8-8959-4A39-BAC8-936E928D2F01}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "RawQueryParserTests", "RawQueryParserTests\RawQueryParserTests.fsproj", "{997319F9-49A5-4CF7-99BC-EEF54A8F3B45}"
@@ -30,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContentApiCore", "ContentAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContentApiCoreTests", "ContentApiCoreTests\ContentApiCoreTests.csproj", "{D2DD4C38-6DFF-4565-9D56-22DC9C3AA0D8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContentApiModels", "ContentApiModels\ContentApiModels.csproj", "{64CA23AF-8349-4009-8629-9E64356A8892}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,10 +40,6 @@ Global
 		{D87BA784-F2A9-4308-AAA9-A94A76922B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D87BA784-F2A9-4308-AAA9-A94A76922B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D87BA784-F2A9-4308-AAA9-A94A76922B1C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B380784A-025B-4983-9FC2-6282759AB38F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B380784A-025B-4983-9FC2-6282759AB38F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B380784A-025B-4983-9FC2-6282759AB38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B380784A-025B-4983-9FC2-6282759AB38F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFEF98C8-8959-4A39-BAC8-936E928D2F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFEF98C8-8959-4A39-BAC8-936E928D2F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFEF98C8-8959-4A39-BAC8-936E928D2F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -80,6 +76,10 @@ Global
 		{D2DD4C38-6DFF-4565-9D56-22DC9C3AA0D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2DD4C38-6DFF-4565-9D56-22DC9C3AA0D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2DD4C38-6DFF-4565-9D56-22DC9C3AA0D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64CA23AF-8349-4009-8629-9E64356A8892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64CA23AF-8349-4009-8629-9E64356A8892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64CA23AF-8349-4009-8629-9E64356A8892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64CA23AF-8349-4009-8629-9E64356A8892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

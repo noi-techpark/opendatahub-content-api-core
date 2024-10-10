@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using DataModel;
 using DataModel.Annotations;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -10,7 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataModel
+namespace ContentApiModels
+
 {
     public class Example : IIdentifiable, IImportDateassigneable, IMappingAware, IHasLanguage, ISource, IActivateable, IMetaData, IPublishedOn, IDetailInfosAware, IGPSInfoAware, IImageGalleryAware, IShortName, IContactInfosAware, ILicenseInfo, IGPSPointsAware
     {

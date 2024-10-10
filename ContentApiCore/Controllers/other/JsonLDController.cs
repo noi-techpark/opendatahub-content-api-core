@@ -17,6 +17,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Threading.Tasks;
 using OdhNotifier;
+using ContentApiModels;
 
 namespace ContentApiCore.Controllers.api
 {

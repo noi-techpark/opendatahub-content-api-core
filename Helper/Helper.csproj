@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataModel\DataModel.csproj" />
+    <ProjectReference Include="..\ContentApiModels\ContentApiModels.csproj" />
     <ProjectReference Include="..\RawQueryParser\RawQueryParser.fsproj" />
   </ItemGroup>
 

@@ -13,6 +13,7 @@ using System.Xml;
 using HtmlAgilityPack;
 using DataModel;
 using Newtonsoft.Json;
+using ContentApiModels;
 
 namespace JsonLDTransformer
 {
@@ -25,7 +26,7 @@ namespace JsonLDTransformer
             switch (type)
             {
                 case "example":
-                    objectlist.Add(TransformExampleToLD((DataModel.Example)(object)data, currentroute, language, idtoshow, urltoshow, imageurltoshow, showid));
+                    objectlist.Add(TransformExampleToLD((Example)(object)data, currentroute, language, idtoshow, urltoshow, imageurltoshow, showid));
                     break;             
             }
 
@@ -35,7 +36,7 @@ namespace JsonLDTransformer
 
         #region Place
 
-        private static Schema.NET.Place TransformExampleToLD(DataModel.Example placetotrasform, string currentroute, string language, string passedid, string passedurl, string passedimage, bool showid)
+        private static Schema.NET.Place TransformExampleToLD(Example placetotrasform, string currentroute, string language, string passedid, string passedurl, string passedimage, bool showid)
         {
             string fallbacklanguage = "en";
 
