@@ -13,15 +13,20 @@ namespace Helper.Generic
 {
     public enum CRUDOperation
     {
-        Create, Update, Delete, Read
+        Create,
+        Update,
+        Delete,
+        Read,
+        CreateAndUpdate,
     }
 
     public class DataInfo
-    {        
-        public DataInfo(string table, CRUDOperation operation)
+    {
+        public DataInfo(string table, CRUDOperation operation, bool savechangestoDB = false)
         {
             Table = table;
             Operation = operation;
+            SaveChangesToDB = savechangestoDB;
 
             if (operation == CRUDOperation.Create)
             {
@@ -32,6 +37,11 @@ namespace Helper.Generic
             {
                 ErrorWhendataExists = false;
                 ErrorWhendataIsNew = true;
+            }
+            else if (operation == CRUDOperation.CreateAndUpdate)
+            {
+                ErrorWhendataExists = false;
+                ErrorWhendataIsNew = false;
             }
             else
             {
@@ -44,6 +54,8 @@ namespace Helper.Generic
         public CRUDOperation Operation { get; set; }
         public bool ErrorWhendataExists { get; set; }
         public bool ErrorWhendataIsNew { get; set; }
+
+        public bool SaveChangesToDB { get; set; }
     }
 
     public class CompareConfig
@@ -65,6 +77,7 @@ namespace Helper.Generic
             Editor = editor;
             Source = source;
         }
+
         public string Editor { get; set; }
         public string? Source { get; set; }
     }
