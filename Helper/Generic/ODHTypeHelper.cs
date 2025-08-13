@@ -41,7 +41,7 @@ namespace Helper
                 ExampleType => "exampletype",
                 Publisher or PublisherLinked => "publisher",
                 Source or SourceLinked => "source",
-                _ => throw new Exception("not known odh type")
+                _ => nameof(T).ToLower().Replace("linked","")
             };
         }
 
@@ -59,7 +59,7 @@ namespace Helper
                 ExampleType => "exampletypes",
                 Publisher or PublisherLinked => "publishers",
                 Source or SourceLinked => "sources",
-                _ => throw new Exception("not known odh type")
+                _ => nameof(T).ToLower().Replace("linked", "")
             };
         }
 
@@ -79,7 +79,7 @@ namespace Helper
                 "example" => "examples",
                 "exampletype" => "exampletypes",              
                 "publisher" => "publishers",                
-                _ => throw new Exception("not known odh type")
+                _ => odhtype
             };
         }
 
@@ -117,7 +117,7 @@ namespace Helper
                 "exampletypes" => "exampletype",             
                 "publishers" => "publisher",
                 "sources" => "source",               
-                _ => throw new Exception("not known odh type")
+                _ => odhtype
             };
         }
 
@@ -157,7 +157,7 @@ namespace Helper
                 "exampletype" => id.ToUpper(),              
                 "publisher" => id.ToLower(),
                 "source" => id.ToLower(),
-                _ => throw new Exception("not known odh type")
+                _ => id
             };
         }
 
@@ -260,7 +260,7 @@ namespace Helper
                 "snowreport" => "Weather/SnowReport",
                 "weather" => "Weather",
 
-                _ => throw new Exception("not known odh type")
+                _ => FirstLetterToUpper(odhtype)
             };
         }
 
@@ -301,6 +301,14 @@ namespace Helper
                 "venue" => "notextfield",
                 _ => throw new Exception("not known odh type")
             };
+        }
+
+        static string FirstLetterToUpper(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+
+            return char.ToUpper(input[0]) + input.Substring(1);
         }
     }
 }

@@ -696,7 +696,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -776,7 +776,7 @@
             }
           },
           "500": {
-            "description": "Server Error"
+            "description": "Internal Server Error"
           }
         },
         "security": [
@@ -966,7 +966,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1046,7 +1046,7 @@
             }
           },
           "500": {
-            "description": "Server Error"
+            "description": "Internal Server Error"
           }
         },
         "security": [
@@ -1073,7 +1073,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1153,7 +1153,7 @@
             }
           },
           "500": {
-            "description": "Server Error"
+            "description": "Internal Server Error"
           }
         },
         "security": [
@@ -1504,7 +1504,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -1544,7 +1544,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -1572,7 +1572,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -1603,6 +1603,29 @@
             "in": "query",
             "schema": {
               "type": "integer"
+            }
+          },
+          {
+            "name": "srid",
+            "in": "query",
+            "description": "Spatial Reference Identifier, Coordinate System of the geojson, available formats(epsg:4362,epsg:32632,epsg:3857)",
+            "schema": {
+              "type": "string",
+              "default": "epsg:4362"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -1658,7 +1681,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeoShapes"
+                    "$ref": "#/components/schemas/GeoShapeJson"
                   }
                 }
               },
@@ -1666,7 +1689,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeoShapes"
+                    "$ref": "#/components/schemas/GeoShapeJson"
                   }
                 }
               },
@@ -1674,7 +1697,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeoShapes"
+                    "$ref": "#/components/schemas/GeoShapeJson"
                   }
                 }
               },
@@ -1682,7 +1705,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeoShapes"
+                    "$ref": "#/components/schemas/GeoShapeJson"
                   }
                 }
               },
@@ -1690,7 +1713,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeoShapes"
+                    "$ref": "#/components/schemas/GeoShapeJson"
                   }
                 }
               },
@@ -1698,7 +1721,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeoShapes"
+                    "$ref": "#/components/schemas/GeoShapeJson"
                   }
                 }
               },
@@ -1706,7 +1729,211 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/GeoShapes"
+                    "$ref": "#/components/schemas/GeoShapeJson"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/GeoShape": {
+      "get": {
+        "tags": [
+          "Geo"
+        ],
+        "summary": "GET GeoShapes List",
+        "parameters": [
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "srid",
+            "in": "query",
+            "description": "Spatial Reference Identifier, Coordinate System of the geojson, available formats(epsg:4362,epsg:32632,epsg:3857)",
+            "schema": {
+              "type": "string",
+              "default": "epsg:4362"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "searchfilter",
+            "in": "query",
+            "description": "String to search for, Title in all languages are searched, (default: null) <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#searchfilter\" target=\"_blank\">Wiki searchfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawsort\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapeJson"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapeJson"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapeJson"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapeJson"
+                  }
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapeJson"
+                  }
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapeJson"
+                  }
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GeoShapeJson"
                   }
                 }
               }
@@ -1769,24 +1996,8 @@
           "Geo"
         ],
         "summary": "GET GeoShape Single",
-        "operationId": "SingleShapes",
+        "operationId": "SingleGeoShapes",
         "parameters": [
-          {
-            "name": "pagenumber",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pagesize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
           {
             "name": "id",
             "in": "path",
@@ -1794,6 +2005,14 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "srid",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "epsg:4362"
             }
           },
           {
@@ -1823,37 +2042,175 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeoShapes"
+                  "$ref": "#/components/schemas/GeoShapeJson"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeoShapes"
+                  "$ref": "#/components/schemas/GeoShapeJson"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeoShapes"
+                  "$ref": "#/components/schemas/GeoShapeJson"
                 }
               },
               "text/csv": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeoShapes"
+                  "$ref": "#/components/schemas/GeoShapeJson"
                 }
               },
               "application/ld+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeoShapes"
+                  "$ref": "#/components/schemas/GeoShapeJson"
                 }
               },
               "application/ldjson": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeoShapes"
+                  "$ref": "#/components/schemas/GeoShapeJson"
                 }
               },
               "application/rawdata": {
                 "schema": {
-                  "$ref": "#/components/schemas/GeoShapes"
+                  "$ref": "#/components/schemas/GeoShapeJson"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/GeoShape/{id}": {
+      "get": {
+        "tags": [
+          "Geo"
+        ],
+        "summary": "GET GeoShape Single",
+        "operationId": "SingleGeoShape",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Tag",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "srid",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "epsg:4362"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapeJson"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapeJson"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapeJson"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapeJson"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapeJson"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapeJson"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoShapeJson"
                 }
               }
             }
@@ -1927,7 +2284,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           },
           "404": {
             "description": "Not Found",
@@ -1963,7 +2320,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -1991,7 +2348,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           },
           "404": {
             "description": "Not Found",
@@ -2027,7 +2384,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -2108,7 +2465,762 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/OpenDataHubContent": {
+      "get": {
+        "tags": [
+          "OpenDataHubContent"
+        ],
+        "summary": "GET OpenDataHubContent List",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pagenumber",
+            "in": "query",
+            "description": "Pagenumber",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pagesize",
+            "in": "query",
+            "description": "Elements per Page, (default:10)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "idlist",
+            "in": "query",
+            "description": "IDFilter (Separator ',' List of IDs), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "langfilter",
+            "in": "query",
+            "description": "Language filter (returns only data available in the selected Language, Separator ',' possible values: 'de,it,en,nl,sc,pl,fr,ru', 'null': Filter disabled)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "updatefrom",
+            "in": "query",
+            "description": "Returns data changed after this date Format (yyyy-MM-dd), (default: 'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "seed",
+            "in": "query",
+            "description": "Seed '1 - 10' for Random Sorting, '0' generates a Random Seed, 'null' disables Random Sorting, (default:null)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "publishedon",
+            "in": "query",
+            "description": "Published On Filter (Separator ',' List of publisher IDs), (default:'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Filter by Source (Separator ','), (Sources available 'idm','noi'...),(default: 'null')",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "GeoFilter FLOAT Latitude Format: '46.624975', 'null' = disabled, (default:'null') <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Geosorting-and-Locationfilter-usage#geosorting-functionality\" target=\"_blank\">Wiki geosort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "GeoFilter FLOAT Longitude Format: '11.369909', 'null' = disabled, (default:'null') <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Geosorting-and-Locationfilter-usage#geosorting-functionality\" target=\"_blank\">Wiki geosort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "description": "Radius INTEGER to Search in Meters. Only Object withhin the given point and radius are returned and sorted by distance. Random Sorting is disabled if the GeoFilter Informations are provided, (default:'null') <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Geosorting-and-Locationfilter-usage#geosorting-functionality\" target=\"_blank\">Wiki geosort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "polygon",
+            "in": "query",
+            "description": "valid WKT (Well-known text representation of geometry) Format, Examples (POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))) / By Using the GeoShapes Api (v1/GeoShapes) and passing Country.Type.Id OR Country.Type.Name Example (it.municipality.3066) / Bounding Box Filter bbc: 'Bounding Box Contains', 'bbi': 'Bounding Box Intersects', followed by a List of Comma Separated Longitude Latitude Tuples, 'null' = disabled, (default:'null') <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Geosorting-and-Locationfilter-usage#polygon-filter-functionality\" target=\"_blank\">Wiki geosort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "searchfilter",
+            "in": "query",
+            "description": "String to search for, Title in all languages are searched, (default: null) <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#searchfilter\" target=\"_blank\">Wiki searchfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawfilter",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawfilter\" target=\"_blank\">Wiki rawfilter</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rawsort",
+            "in": "query",
+            "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Using-rawfilter-and-rawsort-on-the-Tourism-Api#rawsort\" target=\"_blank\">Wiki rawsort</a>",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinkedJsonResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinkedJsonResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinkedJsonResult"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinkedJsonResult"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinkedJsonResult"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinkedJsonResult"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinkedJsonResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "OpenDataHubContent"
+        ],
+        "summary": "POST Insert new OpenDataHubContent",
+        "requestBody": {
+          "description": "OpenDataHubContentLinked Object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenDataHubContentLinked"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenDataHubContentLinked"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenDataHubContentLinked"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenDataHubContentLinked"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/OpenDataHubContent/{id}": {
+      "get": {
+        "tags": [
+          "OpenDataHubContent"
+        ],
+        "summary": "GET OpenDataHubContent Single",
+        "operationId": "SingleOpenDataHubContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the OpenDataHubContent",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Language field selector, displays data and fields in the selected language (default:'null' all languages are displayed)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Select fields to display, More fields are indicated by separator ',' example fields=Id,Active,Shortname (default:'null' all fields are displayed). <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters%2C-fields%2C-language%2C-searchfilter%2C-removenullvalues%2C-updatefrom#fields\" target=\"_blank\">Wiki fields</a>",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "removenullvalues",
+            "in": "query",
+            "description": "Remove all Null values from json output. Useful for reducing json size. By default set to false. Documentation on <a href=\"https://github.com/noi-techpark/odh-docs/wiki/Common-parameters,-fields,-language,-searchfilter,-removenullvalues,-updatefrom#removenullvalues\" target=\"_blank\">Opendatahub Wiki</a>",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinked"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinked"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinked"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinked"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinked"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinked"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenDataHubContentLinked"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "OpenDataHubContent"
+        ],
+        "summary": "PUT Modify existing OpenDataHubContent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "OpenDataHubContentLinked Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "OpenDataHubContentLinked Object",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenDataHubContentLinked"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenDataHubContentLinked"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenDataHubContentLinked"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenDataHubContentLinked"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "OpenDataHubContent"
+        ],
+        "summary": "DELETE OpenDataHubContent by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "OpenDataHubContent Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/PGCRUDResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/ldjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/rawdata": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         },
         "security": [
@@ -2354,7 +3466,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -2551,7 +3663,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -2578,7 +3690,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -3612,7 +4724,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -3809,7 +4921,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -3836,7 +4948,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK"
           }
         },
         "security": [
@@ -3939,6 +5051,101 @@
         },
         "additionalProperties": false
       },
+      "Coordinate": {
+        "type": "object",
+        "properties": {
+          "X": {
+            "type": "number",
+            "format": "double"
+          },
+          "Y": {
+            "type": "number",
+            "format": "double"
+          },
+          "Z": {
+            "type": "number",
+            "format": "double"
+          },
+          "M": {
+            "type": "number",
+            "format": "double"
+          },
+          "CoordinateValue": {
+            "$ref": "#/components/schemas/Coordinate"
+          },
+          "IsValid": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CoordinateEqualityComparer": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "CoordinateSequence": {
+        "type": "object",
+        "properties": {
+          "Dimension": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Measures": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Spatial": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Ordinates": {
+            "$ref": "#/components/schemas/Ordinates"
+          },
+          "HasZ": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "HasM": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "ZOrdinateIndex": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "MOrdinateIndex": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "First": {
+            "$ref": "#/components/schemas/Coordinate"
+          },
+          "Last": {
+            "$ref": "#/components/schemas/Coordinate"
+          },
+          "Count": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CoordinateSequenceFactory": {
+        "type": "object",
+        "properties": {
+          "Ordinates": {
+            "$ref": "#/components/schemas/Ordinates"
+          }
+        },
+        "additionalProperties": false
+      },
       "Detail": {
         "type": "object",
         "properties": {
@@ -4008,6 +5215,81 @@
           "EquipmentInfo": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Dimension": {
+        "enum": [
+          "Point",
+          "Curve",
+          "A",
+          "Collapse",
+          "Dontcare",
+          "True",
+          "False"
+        ],
+        "type": "string"
+      },
+      "Envelope": {
+        "type": "object",
+        "properties": {
+          "IsNull": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "Width": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "Height": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "Diameter": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "MinX": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "MaxX": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "MinY": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "MaxY": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "Area": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "MinExtent": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "MaxExtent": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "Centre": {
+            "$ref": "#/components/schemas/Coordinate"
           }
         },
         "additionalProperties": false
@@ -4189,75 +5471,174 @@
         },
         "additionalProperties": false
       },
-      "GeoShapes": {
+      "GeoShapeJson": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "country": {
+          "Id": {
             "type": "string",
             "nullable": true
           },
-          "code_rip": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "code_reg": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "code_prov": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "code_cm": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "code_uts": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "istatnumber": {
+          "Country": {
             "type": "string",
             "nullable": true
           },
-          "abbrev": {
+          "Name": {
             "type": "string",
             "nullable": true
           },
-          "type_uts": {
+          "Source": {
             "type": "string",
             "nullable": true
           },
-          "name": {
+          "Type": {
             "type": "string",
             "nullable": true
           },
-          "name_alternative": {
+          "_Meta": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "LicenseInfo": {
+            "$ref": "#/components/schemas/LicenseInfo"
+          },
+          "SRid": {
             "type": "string",
             "nullable": true
           },
-          "shape_leng": {
-            "type": "number",
-            "format": "float"
+          "Geometry": {
+            "$ref": "#/components/schemas/Geometry"
           },
-          "shape_area": {
-            "type": "number",
-            "format": "float"
-          },
-          "geom": {
-            "type": "string",
+          "Mapping": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
             "nullable": true
           }
         },
+        "additionalProperties": false
+      },
+      "Geometry": {
+        "type": "object",
+        "properties": {
+          "Factory": {
+            "$ref": "#/components/schemas/GeometryFactory"
+          },
+          "UserData": {
+            "nullable": true
+          },
+          "SRID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GeometryType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "OgcGeometryType": {
+            "$ref": "#/components/schemas/OgcGeometryType"
+          },
+          "PrecisionModel": {
+            "$ref": "#/components/schemas/PrecisionModel"
+          },
+          "Coordinate": {
+            "$ref": "#/components/schemas/Coordinate"
+          },
+          "Coordinates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Coordinate"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "NumPoints": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "NumGeometries": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "IsSimple": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsValid": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsEmpty": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "Area": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "Length": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "Centroid": {
+            "$ref": "#/components/schemas/Point"
+          },
+          "InteriorPoint": {
+            "$ref": "#/components/schemas/Point"
+          },
+          "PointOnSurface": {
+            "$ref": "#/components/schemas/Point"
+          },
+          "Dimension": {
+            "$ref": "#/components/schemas/Dimension"
+          },
+          "Boundary": {
+            "$ref": "#/components/schemas/Geometry"
+          },
+          "BoundaryDimension": {
+            "$ref": "#/components/schemas/Dimension"
+          },
+          "Envelope": {
+            "$ref": "#/components/schemas/Geometry"
+          },
+          "EnvelopeInternal": {
+            "$ref": "#/components/schemas/Envelope"
+          },
+          "IsRectangle": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GeometryFactory": {
+        "type": "object",
+        "properties": {
+          "PrecisionModel": {
+            "$ref": "#/components/schemas/PrecisionModel"
+          },
+          "CoordinateSequenceFactory": {
+            "$ref": "#/components/schemas/CoordinateSequenceFactory"
+          },
+          "SRID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "GeometryServices": {
+            "$ref": "#/components/schemas/NtsGeometryServices"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GeometryOverlay": {
+        "type": "object",
         "additionalProperties": false
       },
       "GpsInfo": {
@@ -4539,6 +5920,7 @@
           },
           "LastUpdate": {
             "type": "string",
+            "description": "Date when Data was lastly saved/updated",
             "format": "date-time",
             "nullable": true
           },
@@ -4570,9 +5952,225 @@
           },
           "Success": {
             "type": "boolean"
+          },
+          "ObjectId": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
+      },
+      "NtsGeometryServices": {
+        "type": "object",
+        "properties": {
+          "GeometryOverlay": {
+            "$ref": "#/components/schemas/GeometryOverlay"
+          },
+          "CoordinateEqualityComparer": {
+            "$ref": "#/components/schemas/CoordinateEqualityComparer"
+          },
+          "DefaultSRID": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "DefaultCoordinateSequenceFactory": {
+            "$ref": "#/components/schemas/CoordinateSequenceFactory"
+          },
+          "DefaultPrecisionModel": {
+            "$ref": "#/components/schemas/PrecisionModel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OgcGeometryType": {
+        "enum": [
+          "Point",
+          "LineString",
+          "Polygon",
+          "MultiPoint",
+          "MultiLineString",
+          "MultiPolygon",
+          "GeometryCollection",
+          "CircularString",
+          "CompoundCurve",
+          "CurvePolygon",
+          "MultiCurve",
+          "MultiSurface",
+          "Curve",
+          "Surface",
+          "PolyhedralSurface",
+          "TIN"
+        ],
+        "type": "string"
+      },
+      "OpenDataHubContentLinked": {
+        "type": "object",
+        "properties": {
+          "Self": {
+            "type": "string",
+            "description": "generated field",
+            "nullable": true,
+            "readOnly": true
+          },
+          "GpsPoints": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/GpsInfo"
+            },
+            "description": "generated field",
+            "nullable": true,
+            "readOnly": true
+          },
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "_Meta": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "FirstImport": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "LastChange": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Source": {
+            "type": "string",
+            "nullable": true
+          },
+          "Active": {
+            "type": "boolean"
+          },
+          "Mapping": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "nullable": true
+          },
+          "LicenseInfo": {
+            "$ref": "#/components/schemas/LicenseInfo"
+          },
+          "PublishedOn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "GpsInfo": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GpsInfo"
+            },
+            "nullable": true
+          },
+          "HasLanguage": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Detail": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Detail"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OpenDataHubContentLinkedJsonResult": {
+        "type": "object",
+        "properties": {
+          "TotalResults": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "TotalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "CurrentPage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PreviousPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "NextPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "Seed": {
+            "type": "string",
+            "nullable": true
+          },
+          "Items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OpenDataHubContentLinked"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Ordinates": {
+        "enum": [
+          "None",
+          "Spatial1",
+          "Spatial2",
+          "XY",
+          "Spatial3",
+          "XYZ",
+          "Spatial4",
+          "Spatial5",
+          "Spatial6",
+          "Spatial7",
+          "Spatial8",
+          "Spatial9",
+          "Spatial10",
+          "Spatial11",
+          "Spatial12",
+          "Spatial13",
+          "Spatial14",
+          "Spatial15",
+          "Spatial16",
+          "AllSpatialOrdinates",
+          "Measure1",
+          "XYM",
+          "XYZM",
+          "Measure2",
+          "Measure3",
+          "Measure4",
+          "Measure5",
+          "Measure6",
+          "Measure7",
+          "Measure8",
+          "Measure9",
+          "Measure10",
+          "Measure11",
+          "Measure12",
+          "Measure13",
+          "Measure14",
+          "Measure15",
+          "Measure16",
+          "AllMeasureOrdinates",
+          "AllOrdinates"
+        ],
+        "type": "string"
       },
       "PGCRUDResult": {
         "type": "object",
@@ -4646,6 +6244,157 @@
           }
         },
         "additionalProperties": false
+      },
+      "Point": {
+        "type": "object",
+        "properties": {
+          "CoordinateSequence": {
+            "$ref": "#/components/schemas/CoordinateSequence"
+          },
+          "Coordinates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Coordinate"
+            },
+            "nullable": true
+          },
+          "NumPoints": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "IsEmpty": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "Dimension": {
+            "$ref": "#/components/schemas/Dimension"
+          },
+          "BoundaryDimension": {
+            "$ref": "#/components/schemas/Dimension"
+          },
+          "X": {
+            "type": "number",
+            "format": "double"
+          },
+          "Y": {
+            "type": "number",
+            "format": "double"
+          },
+          "Coordinate": {
+            "$ref": "#/components/schemas/Coordinate"
+          },
+          "GeometryType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "OgcGeometryType": {
+            "$ref": "#/components/schemas/OgcGeometryType"
+          },
+          "Boundary": {
+            "$ref": "#/components/schemas/Geometry"
+          },
+          "Z": {
+            "type": "number",
+            "format": "double"
+          },
+          "M": {
+            "type": "number",
+            "format": "double"
+          },
+          "Factory": {
+            "$ref": "#/components/schemas/GeometryFactory"
+          },
+          "UserData": {
+            "nullable": true
+          },
+          "SRID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PrecisionModel": {
+            "$ref": "#/components/schemas/PrecisionModel"
+          },
+          "NumGeometries": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "IsSimple": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsValid": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "Area": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "Length": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "Centroid": {
+            "$ref": "#/components/schemas/Point"
+          },
+          "InteriorPoint": {
+            "$ref": "#/components/schemas/Point"
+          },
+          "PointOnSurface": {
+            "$ref": "#/components/schemas/Point"
+          },
+          "Envelope": {
+            "$ref": "#/components/schemas/Geometry"
+          },
+          "EnvelopeInternal": {
+            "$ref": "#/components/schemas/Envelope"
+          },
+          "IsRectangle": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrecisionModel": {
+        "type": "object",
+        "properties": {
+          "IsFloating": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "MaximumSignificantDigits": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Scale": {
+            "type": "number",
+            "format": "double"
+          },
+          "GridSize": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "PrecisionModelType": {
+            "$ref": "#/components/schemas/PrecisionModels"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrecisionModels": {
+        "enum": [
+          "Floating",
+          "FloatingSingle",
+          "Fixed"
+        ],
+        "type": "string"
       },
       "ProblemDetails": {
         "type": "object",
@@ -4853,6 +6602,13 @@
               "type": "string"
             },
             "nullable": true
+          },
+          "SyncDataConfig": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SyncDataConfig"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -4873,6 +6629,47 @@
         },
         "additionalProperties": false
       },
+      "SyncDataConfig": {
+        "type": "object",
+        "properties": {
+          "PathParam": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "BaseUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "SyncDataApiUrl": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateHistory": {
+        "type": "object",
+        "properties": {
+          "LastUpdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "UpdateSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "UpdatedBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateInfo": {
         "type": "object",
         "properties": {
@@ -4882,6 +6679,13 @@
           },
           "UpdateSource": {
             "type": "string",
+            "nullable": true
+          },
+          "UpdateHistory": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UpdateHistory"
+            },
             "nullable": true
           }
         },
@@ -4906,8 +6710,16 @@
   },
   "tags": [
     {
+      "name": "Geo",
+      "description": "<a href=\"https://github.com/noi-techpark/odh-docs/wiki/Geoshapes-Api-and-Geo-Converter#geoshapes-api\" target=\"_blank\">Wiki GeoShapes Api</a>"
+    },
+    {
       "name": "Example",
       "description": "Examples Api"
+    },
+    {
+      "name": "OpenDataHubContent",
+      "description": "OpenDataHubContent Api"
     }
   ]
 }

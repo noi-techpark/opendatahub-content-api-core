@@ -22,7 +22,11 @@ namespace Helper
         {
             double dlong = (long2 - long1) * _d2r;
             double dlat = (lat2 - lat1) * _d2r;
-            double a = Math.Pow(Math.Sin(dlat / 2D), 2D) + Math.Cos(lat1 * _d2r) * Math.Cos(lat2 * _d2r) * Math.Pow(Math.Sin(dlong / 2D), 2D);
+            double a =
+                Math.Pow(Math.Sin(dlat / 2D), 2D)
+                + Math.Cos(lat1 * _d2r)
+                    * Math.Cos(lat2 * _d2r)
+                    * Math.Pow(Math.Sin(dlong / 2D), 2D);
             double c = 2D * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1D - a));
             double d = _eQuatorialEarthRadius * c;
 
@@ -37,10 +41,20 @@ namespace Helper
         public static bool CheckGeoSearch(string latitude, string longitude, string radius)
         {
             bool geosearch = false;
-            //Check of Geosearch durchgeführt werden kann                    
+            //Check of Geosearch durchgeführt werden kann
             CultureInfo culture = CultureInfo.InvariantCulture;
-            bool isLatDouble = Double.TryParse(latitude, NumberStyles.Any, culture, out double latitudecheck);
-            bool isLongDouble = Double.TryParse(longitude, NumberStyles.Any, culture, out double longitudecheck);
+            bool isLatDouble = Double.TryParse(
+                latitude,
+                NumberStyles.Any,
+                culture,
+                out double latitudecheck
+            );
+            bool isLongDouble = Double.TryParse(
+                longitude,
+                NumberStyles.Any,
+                culture,
+                out double longitudecheck
+            );
             bool isRadiusInt = Int32.TryParse(radius, out int radiuscheck);
 
             if (isLatDouble && isLongDouble && isRadiusInt)
@@ -49,19 +63,36 @@ namespace Helper
             return geosearch;
         }
 
-        public static PGGeoSearchResult GetPGGeoSearchResult(string? latitude, string? longitude, string? radius)
+        public static PGGeoSearchResult GetPGGeoSearchResult(
+            string? latitude,
+            string? longitude,
+            string? radius
+        )
         {
             if (latitude == null && longitude == null)
-                return new PGGeoSearchResult() { geosearch = false, latitude = 0, longitude = 0, radius = 0 };
+                return new PGGeoSearchResult()
+                {
+                    geosearch = false,
+                    latitude = 0,
+                    longitude = 0,
+                    radius = 0,
+                };
 
-            PGGeoSearchResult pggeosearchresult = new PGGeoSearchResult
-            {
-                geosearch = false
-            };
-            //Check of Geosearch durchgeführt werden kann                    
+            PGGeoSearchResult pggeosearchresult = new PGGeoSearchResult { geosearch = false };
+            //Check of Geosearch durchgeführt werden kann
             CultureInfo culture = CultureInfo.InvariantCulture;
-            bool isLatDouble = Double.TryParse(latitude, NumberStyles.Any, culture, out double latitudecheck);
-            bool isLongDouble = Double.TryParse(longitude, NumberStyles.Any, culture, out double longitudecheck);
+            bool isLatDouble = Double.TryParse(
+                latitude,
+                NumberStyles.Any,
+                culture,
+                out double latitudecheck
+            );
+            bool isLongDouble = Double.TryParse(
+                longitude,
+                NumberStyles.Any,
+                culture,
+                out double longitudecheck
+            );
             bool isRadiusInt = Int32.TryParse(radius, out int radiuscheck);
 
             if (isLatDouble && isLongDouble)
@@ -79,7 +110,6 @@ namespace Helper
                 //var actualdistance = DistanceCalculator.Distance(pggeosearchresult.latitude, pggeosearchresult.longitude, DistanceCalculator.suedtirolMitteLatitude, DistanceCalculator.suedtirolMitteLongitude, 'K');
                 //if (actualdistance > 200)
                 //    pggeosearchresult.geosearch = false;
-
             }
             else
             {
@@ -92,16 +122,22 @@ namespace Helper
             return pggeosearchresult;
         }
 
-        public static PGGeoSearchResult GetPGGeoSearchResult(double? latitude, double? longitude, int radius)
+        public static PGGeoSearchResult GetPGGeoSearchResult(
+            double? latitude,
+            double? longitude,
+            int radius
+        )
         {
             if (latitude == null && longitude == null)
-                return new PGGeoSearchResult() { geosearch = false, latitude = 0, longitude = 0, radius = 0 };
+                return new PGGeoSearchResult()
+                {
+                    geosearch = false,
+                    latitude = 0,
+                    longitude = 0,
+                    radius = 0,
+                };
 
-            PGGeoSearchResult pggeosearchresult = new PGGeoSearchResult
-            {
-                geosearch = false
-            };
-
+            PGGeoSearchResult pggeosearchresult = new PGGeoSearchResult { geosearch = false };
 
             pggeosearchresult.geosearch = true;
             pggeosearchresult.latitude = latitude ?? 0;
@@ -115,57 +151,18 @@ namespace Helper
             return pggeosearchresult;
         }
 
-        public static RavenGeoSearchResult GetRavenGeoSearchResult(string latitude, string longitude, string radius)
+        public static async Task<GeoPolygonSearchResult?> GetPolygon(
+            string? polygon,
+            QueryFactory queryfactory
+        )
         {
-            if (latitude == null && longitude == null)
-                return new RavenGeoSearchResult() { geosearch = false, latitude = 0, longitude = 0, radius = 0 };
-
-            RavenGeoSearchResult pggeosearchresult = new RavenGeoSearchResult
-            {
-                geosearch = false
-            };
-            //Check of Geosearch durchgeführt werden kann                    
-            CultureInfo culture = CultureInfo.InvariantCulture;
-            bool isLatDouble = Double.TryParse(latitude, NumberStyles.Any, culture, out double latitudecheck);
-            bool isLongDouble = Double.TryParse(longitude, NumberStyles.Any, culture, out double longitudecheck);
-            bool isRadiusInt = Int32.TryParse(radius, out int radiuscheck);
-
-            if (isLatDouble && isLongDouble)
-            {
-                pggeosearchresult.geosearch = true;
-                pggeosearchresult.latitude = latitudecheck;
-                pggeosearchresult.longitude = longitudecheck;
-
-                if (isRadiusInt)
-                    pggeosearchresult.radius = radiuscheck;
-                else
-                    pggeosearchresult.radius = 150;
-
-                //Check ob das ganze sinn macht
-                var actualdistance = DistanceCalculator.Distance(pggeosearchresult.latitude, pggeosearchresult.longitude, DistanceCalculator.suedtirolMitteLatitude, DistanceCalculator.suedtirolMitteLongitude, 'K');
-                if (actualdistance > 150)
-                    pggeosearchresult.geosearch = false;
-
-            }
-            else
-            {
-                pggeosearchresult.geosearch = false;
-                pggeosearchresult.latitude = 0;
-                pggeosearchresult.longitude = 0;
-                pggeosearchresult.radius = 0;
-            }
-
-            return pggeosearchresult;
-        }
-
-        public static async Task<GeoPolygonSearchResult?> GetPolygon(string? polygon, QueryFactory queryfactory)
-        {
-            if(String.IsNullOrEmpty(polygon)) return null;            
+            if (String.IsNullOrEmpty(polygon))
+                return null;
             else
             {
                 GeoPolygonSearchResult result = new GeoPolygonSearchResult();
                 //setting standard operation to intersects
-                result.operation = "intersects";                
+                result.operation = "intersects";
 
                 //Check for WKT String
                 if (CheckWKTSyntax(polygon, queryfactory))
@@ -176,25 +173,29 @@ namespace Helper
                     {
                         result.wktstring = wktandsrid.Value.Item1;
                         result.srid = wktandsrid.Value.Item2;
+
+                        result.reduceprecision = CheckPrecisionReduceNeeded(polygon);
+
                         return result;
                     }
                     else
                         return null;
                 }
-
-                else if (polygon.ToLower().StartsWith("bbc(") || polygon.ToLower().StartsWith("bbi("))
+                else if (
+                    polygon.ToLower().StartsWith("bbc(") || polygon.ToLower().StartsWith("bbi(")
+                )
                 {
                     result.polygon = new List<Tuple<double, double>>();
 
                     string coordstoprocess = "";
                     string polygonwithoutsrid = polygon;
-                    
+
                     if (polygon.Split(";").Length > 1)
                     {
                         var splitted = polygon.Split(";");
                         var sridstr = splitted[1].ToUpper();
                         if (sridstr.StartsWith("SRID="))
-                            result.srid = sridstr.Replace("SRID=", "");                        
+                            result.srid = sridstr.Replace("SRID=", "");
                     }
 
                     if (polygon.ToLower().StartsWith("bbc"))
@@ -217,39 +218,59 @@ namespace Helper
                     {
                         var coords = item.Trim().Split(" ");
 
-                        if (coords.Count() == 2 && Double.TryParse(coords[0], NumberStyles.Any, culture, out double longitude) && Double.TryParse(coords[1], NumberStyles.Any, culture, out double latitude))
+                        if (
+                            coords.Count() == 2
+                            && Double.TryParse(
+                                coords[0],
+                                NumberStyles.Any,
+                                culture,
+                                out double longitude
+                            )
+                            && Double.TryParse(
+                                coords[1],
+                                NumberStyles.Any,
+                                culture,
+                                out double latitude
+                            )
+                        )
                         {
                             result.polygon.Add(Tuple.Create(longitude, latitude));
                         }
                     }
 
-                    if (result.polygon.Count == 0) return null;
-                    else return result;
+                    if (result.polygon.Count == 0)
+                        return null;
+                    else
+                        return result;
                 }
                 else
                 {
+                    //pass only id of geoshape
+                    //
+
                     //Format = country.type.id or country.type.name
                     var inputquery = polygon.Split(".");
-                    if (inputquery.Length != 3)
-                        return null;
+                    //if (inputquery.Length != 3)
+                    //    return null;
 
-                    bool idtofilter = int.TryParse(inputquery[2], out int parsedid);
 
                     //Retrieve data from shape table
 
-                    var geometry = await queryfactory.Query()
-                        .SelectRaw("ST_AsText(geometry)")
-                        .From("shapes")
-                        .Where("country", inputquery[0].ToUpper())
-                        .Where("type", inputquery[1].ToLower())
-                        .When(idtofilter, x => x.Where("id", parsedid))
-                        .When(!idtofilter, x => x.WhereLike("name", inputquery[2]))
+                    var geometry = await queryfactory
+                        .Query()
+                        .SelectRaw("ST_AsText(ST_Transform(geometry, 4326))")
+                        .From("geoshapes")
+                        .When(inputquery.Length == 3, x => x.Where("country", inputquery[0].ToUpper()))
+                        .When(inputquery.Length == 3, x => x.Where("type", inputquery[1].ToLower()))
+                        .When(inputquery.Length == 3, x => x.Where("id", inputquery[2]).OrWhereLike("name", inputquery[2]))
+                        .OrWhere("id", polygon)
                         //create a generated column which constructs a name by id,type and name
                         .FirstOrDefaultAsync<string>();
 
                     if (!String.IsNullOrEmpty(geometry))
-                    {                        
+                    {
                         result.wktstring = geometry.ToString();
+                        result.reduceprecision = CheckPrecisionReduceNeeded(geometry.ToString());
 
                         return result;
                     }
@@ -257,25 +278,44 @@ namespace Helper
                         return null;
                 }
             }
-
         }
 
         public static bool CheckValidWKTString(string? polygon)
         {
-            if (polygon.ToUpper().StartsWith("LINESTRING") ||
-                polygon.ToUpper().StartsWith("POLYGON") ||
-                polygon.ToUpper().StartsWith("MULTIPOINT") ||
-                polygon.ToUpper().StartsWith("MULTILINESTRING") ||
-                    polygon.ToUpper().StartsWith("MULTIPOLYGON") ||
-                    polygon.ToUpper().StartsWith("GEOMETRYCOLLECTION") ||
-                    polygon.ToUpper().StartsWith("POINT ZM") ||
-                    polygon.ToUpper().StartsWith("POINT M"))
+            if (
+                polygon.ToUpper().StartsWith("LINESTRING")
+                || polygon.ToUpper().StartsWith("POLYGON")
+                || polygon.ToUpper().StartsWith("MULTIPOINT")
+                || polygon.ToUpper().StartsWith("MULTILINESTRING")
+                || polygon.ToUpper().StartsWith("MULTIPOLYGON")
+                || polygon.ToUpper().StartsWith("GEOMETRYCOLLECTION")
+                || polygon.ToUpper().StartsWith("POINT ZM")
+                || polygon.ToUpper().StartsWith("POINT M")
+                || polygon.ToUpper().StartsWith("POINT")
+            )
             {
                 return true;
             }
             else
                 return false;
         }
+
+
+        public static bool CheckPrecisionReduceNeeded(string? polygon)
+        {
+            if (
+                polygon.ToUpper().StartsWith("LINESTRING")
+                || polygon.ToUpper().StartsWith("POINT")
+                || polygon.ToUpper().StartsWith("MULTIPOINT")
+                || polygon.ToUpper().StartsWith("MULTILINESTRING")
+            )
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
 
         public static bool CheckWKTSyntax(string? polygon, QueryFactory queryFactory)
         {
@@ -285,7 +325,12 @@ namespace Helper
 
                 if (wktwithsrid != null)
                 {
-                    var query = queryFactory.Query().SelectRaw($"Count(ST_GeometryFromText('{wktwithsrid.Value.Item1}',{wktwithsrid.Value.Item2}))").Get<int>();
+                    var query = queryFactory
+                        .Query()
+                        .SelectRaw(
+                            $"Count(ST_GeometryFromText('{wktwithsrid.Value.Item1}',{wktwithsrid.Value.Item2}))"
+                        )
+                        .Get<int>();
 
                     if (query != null && query.FirstOrDefault() == 1)
                         return true;
@@ -293,10 +338,13 @@ namespace Helper
 
                 return false;
             }
-            catch { return false; }            
+            catch
+            {
+                return false;
+            }
         }
 
-        public static (string,string)? GetWKTAndSRIDFromQuerystring(string? polygon)
+        public static (string, string)? GetWKTAndSRIDFromQuerystring(string? polygon)
         {
             string srid = "4326";
             string wkt = "";
@@ -309,7 +357,7 @@ namespace Helper
                 if (sridstr.StartsWith("SRID="))
                 {
                     sridstr = sridstr.Replace("SRID=", "");
-                    
+
                     if (CheckValidWKTString(splitted[0]))
                     {
                         wkt = splitted[0];
@@ -327,19 +375,15 @@ namespace Helper
                     return (wkt, srid);
                 }
             }
-            
-            return null;            
+
+            return null;
         }
-
-
     }
-    
 
     public class DistanceCalculator
     {
         public const double suedtirolMitteLatitude = 46.655781;
         public const double suedtirolMitteLongitude = 11.4296877;
-
 
         //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         //:::                                                                         :::
@@ -372,7 +416,9 @@ namespace Helper
         public static double Distance(double lat1, double lon1, double lat2, double lon2, char unit)
         {
             double theta = lon1 - lon2;
-            double dist = Math.Sin(Deg2rad(lat1)) * Math.Sin(Deg2rad(lat2)) + Math.Cos(Deg2rad(lat1)) * Math.Cos(Deg2rad(lat2)) * Math.Cos(Deg2rad(theta));
+            double dist =
+                Math.Sin(Deg2rad(lat1)) * Math.Sin(Deg2rad(lat2))
+                + Math.Cos(Deg2rad(lat1)) * Math.Cos(Deg2rad(lat2)) * Math.Cos(Deg2rad(theta));
             dist = Math.Acos(dist);
             dist = Rad2deg(dist);
             dist = dist * 60 * 1.1515;
@@ -402,7 +448,6 @@ namespace Helper
         {
             return (rad / Math.PI * 180.0);
         }
-
     }
 
     public class PGGeoSearchResult
@@ -416,16 +461,10 @@ namespace Helper
     public class GeoPolygonSearchResult
     {
         public string? operation { get; set; }
-        public List<Tuple<double,double>>? polygon { get; set; }
-        public string? wktstring { get; set; } = null;        
+        public List<Tuple<double, double>>? polygon { get; set; }
+        public string? wktstring { get; set; } = null;
         public string srid { get; set; } = "4326";
-    }
 
-    public class RavenGeoSearchResult
-    {
-        public bool geosearch { get; set; }
-        public double latitude { get; set; }
-        public double longitude { get; set; }
-        public int radius { get; set; }
+        public bool reduceprecision { get; set; } = false;
     }
 }

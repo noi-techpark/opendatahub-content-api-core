@@ -33,5 +33,14 @@ namespace Helper
             
             return GetLicenseInfoobject(licensetype, "", licenseholder, !isopendata);
         }
+
+        public static LicenseInfo GetLicenseforGeneric()
+        {
+            var isopendata = true;
+            var licensetype = "CC0";
+            var licenseholder = "";
+
+            return GetLicenseInfoobject(licensetype, "", licenseholder, !isopendata);
+        }
     }
 }

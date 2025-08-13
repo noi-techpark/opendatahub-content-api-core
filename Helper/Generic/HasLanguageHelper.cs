@@ -141,8 +141,7 @@ namespace Helper
                     }
                 }
             }
-        }
-
+        }   
 
         //Check Language for Example DataModel
         public static void CheckMyInsertedLanguages(this Example example, List<string> availablelanguages)

@@ -65,7 +65,7 @@ namespace Helper
         }
 
         //Discriminator if the function is not passed
-        public static Metadata GetMetadataobject<T>(T myobject, bool reduced = false)
+        public static Metadata GetMetadataobject<T>(T myobject, bool reduced = false) where T : IIdentifiable
         {
             return myobject switch
             {
@@ -73,7 +73,7 @@ namespace Helper
                 PublisherLinked pbl => GetMetadataforPublisher(pbl),
                 SourceLinked pbl => GetMetadataforSource(pbl),
                 GeoShapeJson gj => GetMetadataForGeoShapeJson(gj),
-                _ => throw new Exception("not known odh type")
+                _ => GetMetadataForDefault<T>(myobject) //Default Function if no mapping is present
             };            
         }
 
@@ -106,6 +106,18 @@ namespace Helper
                 Type = type,
                 LastUpdate = DateTime.Now,
                 Source = data.Source,
+                Reduced = false,
+            };
+        }
+
+        public static Metadata GetMetadataForDefault<T>(T data) where T: IIdentifiable
+        {
+            return new Metadata()
+            {
+                Id = data.Id.ToString(),
+                Type = nameof(T).ToLower().Replace("linked",""),
+                LastUpdate = DateTime.Now,
+                Source = data is ISource ? (data as ISource).Source : "unknown",
                 Reduced = false,
             };
         }

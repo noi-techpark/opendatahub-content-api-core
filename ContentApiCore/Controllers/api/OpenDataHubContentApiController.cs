@@ -1,125 +1,30 @@
-<!--
-SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+// SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
-SPDX-License-Identifier: CC0-1.0
--->
+using AspNetCore.CacheOutput;
+using ContentApiCore.Responses;
+using ContentApiModels;
+using DataModel;
+using Helper;
+using Helper.Generic;
+using Helper.Identity;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using OdhNotifier;
+using Schema.NET;
+using SqlKata.Execution;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
-# How to add a new DataModel / Controller
-
-4 Steps are needed to define a new Model with a Endpoint and a Database storage 
-
-## DataModel
-
-Define new DataModel.
-There are a few constraints. The Datamodel has to implement the Interfaces
-- IIdentifiable
-- IImportDateassigneable
-- IMetaData
-
-in general they "should" also implement this interfaces
-- IMappingAware
-- IHasLanguage
-- ISource
-- IActivateable
-- IPublishedOn
-- ILicenseInfo
-
-means the minimum Set of fields are:
-- Id
-- _Meta
-- FirstImport, LastChange  
-
-optional  
-
-- PublishedOn
-- Active
-- Mapping
-- Source
-- HasLanguage
-- LicenseInfo
-
-It is always useful to reuse already defined Objects in your DataModel like
-- ContactInfos
-- Detail
-- GpsInfos
-
-Example:
-
-Let's add a new DataModel OpenDataHubContent
-We add also Language Support, a Detail Objekt and Gps Infos
-
-```
-    public class OpenDataHubContent : IIdentifiable, IMetaData, IImportDateassigneable, ISource, IActivateable, IMappingAware, ILicenseInfo, IPublishedOn, IGPSInfoAware, IHasLanguage, IDetailInfosAware
-    {
-        public string Id { get; set; }
-        public Metadata _Meta { get; set; }
-        public DateTime? FirstImport { get; set; }
-        public DateTime? LastChange { get; set; }
-        public string Source { get; set; }
-        public bool Active { get; set; }
-        public IDictionary<string, IDictionary<string, string>> Mapping { get; set; }
-        public LicenseInfo LicenseInfo { get; set; }
-        public ICollection<string>? PublishedOn { get; set; }
-        public ICollection<GpsInfo> GpsInfo { get; set; }        
-        public ICollection<string>? HasLanguage { get; set; }
-        public IDictionary<string, Detail> Detail { get; set; }
-    }
-```
-For all fields which contains "Links" to have a browseable api we create the same Object followed by "Linked"
-In Our Case we just want to add a Self Link to the DataModel  
-We also have to add a generated field GpsPoints needed to have the full Geosearch functionality
-
-```
-    public class OpenDataHubContentLinked : OpenDataHubContent
-    {
-        [SwaggerSchema(Description = "generated field", ReadOnly = true)]
-        public string? Self
-        {
-            get
-            {
-                return this.Id != null ? "Example/" + Uri.EscapeDataString(this.Id) : null;
-            }
-        }
-
-        [SwaggerSchema(Description = "generated field", ReadOnly = true)]
-        public IDictionary<string, GpsInfo> GpsPoints
-        {
-            get { return this.GpsInfo.ToGpsPointsDictionary(); }
-        }
-    }
-```
-
-
-## Controller
-
-Define a Controller which inherits from OdhController
-implement  
-GET LIST
-GET DETAIL
-POST
-PUT
-DELETE
-Methods
-
-Example:
-
-Let's add the Controller for OpenDataHubContent DataModel
-
-The Controller supports Getting a List of OpenDataHubContent Features are
-Pagination 
-Random Sorting
-Searchfilter
-Pass an Id List
-Get the result only in the desired Language
-Get the result only if available in the desired Language
-GeoFilter functionality
-Polygon functionality
-Fields functionality
-Rawfilter
-Rawsort
-Remove Nullvalues
-
-```
+namespace ContentApiCore.Controllers.api
+{
     /// <summary>
     /// OpenDataHubContent Api
     /// </summary>
@@ -379,7 +284,7 @@ Remove Nullvalues
                 AdditionalFiltersToAdd.TryGetValue("Update", out var additionalfilter);
 
                 //Check ID uppercase lowercase
-                opendatahubcontent.Id = Helper.IdGenerator.CheckIdFromType<ExampleLinked>(id);
+                opendatahubcontent.Id = Helper.IdGenerator.CheckIdFromType<OpenDataHubContentLinked>(id);
 
                 //Implement Custom CheckMyInsertedLanguages
                 //opendatahubcontent.CheckMyInsertedLanguages(new List<string> { "de", "en", "it" });
@@ -417,135 +322,4 @@ Remove Nullvalues
 
         #endregion
     }
-
-```
-
-## Database Table
-
-Let's add a Table in our Postgres with the name `opendatahubcontent`
-We need generated Columns for the fields/sections  
-LicenseInfo  
-Active  
-HasLanguage  
-Lastchange  
-Latitude, Longitude  
-PublishedOn  
-Source  
-Reduced  
-Generated Id, Access_Role, Position are also needed_
-
-We generated also some index to speed up Geosearch Queries and Searchfilter Queries
-
-```SQL
-CREATE TABLE opendatahubcontent (
-	id varchar(200) NOT NULL,
-	"data" jsonb NULL,
-	gen_licenseinfo_closeddata bool GENERATED ALWAYS AS ((data #> '{LicenseInfo,ClosedData}'::text[])::boolean) STORED NULL,
-	gen_active bool GENERATED ALWAYS AS ((data #> '{Active}'::text[])::boolean) STORED NULL,
-	gen_haslanguage _text GENERATED ALWAYS AS (json_array_to_pg_array(data #> '{HasLanguage}'::text[])) STORED NULL,
-	gen_lastchange timestamp GENERATED ALWAYS AS (text2ts(data #>> '{LastChange}'::text[])) STORED NULL,
-	gen_latitude float8 GENERATED ALWAYS AS ((data #> '{GpsPoints,position,Latitude}'::text[])::double precision) STORED NULL,
-	gen_longitude float8 GENERATED ALWAYS AS ((data #> '{GpsPoints,position,Longitude}'::text[])::double precision) STORED NULL,
-	gen_publishedon _text GENERATED ALWAYS AS (json_array_to_pg_array(data #> '{PublishedOn}'::text[])) STORED NULL,
-	gen_source text GENERATED ALWAYS AS (data #>> '{_Meta,Source}'::text[]) STORED NULL,
-	gen_reduced bool GENERATED ALWAYS AS ((data #> '{_Meta,Reduced}'::text[])::boolean) STORED NULL,	
-	gen_access_role _text GENERATED ALWAYS AS (calculate_access_array(data #>> '{_Meta,Source}'::text[], (data #> '{LicenseInfo,ClosedData}'::text[])::boolean, (data #> '{_Meta,Reduced}'::text[])::boolean)) STORED NULL,
-	gen_position public.geometry GENERATED ALWAYS AS (st_setsrid(st_makepoint((data #> '{GpsPoints,position,Longitude}'::text[])::double precision, (data #> '{GpsPoints,position,Latitude}'::text[])::double precision), 4326)) STORED NULL,
-	gen_id text GENERATED ALWAYS AS (data #>> '{Id}'::text[]) STORED NULL,
-    rawdataid int4 NULL,
-	CONSTRAINT opendatabhubcontent_pkey PRIMARY KEY (id)
-);
-CREATE INDEX opendatahubcontent_detail_de_title_trgm_idx ON public.opendatahubcontent USING gin (((data #>> '{Detail,de,Title}'::text[])) gin_trgm_ops);
-CREATE INDEX opendatahubcontent_detail_en_title_trgm_idx ON public.opendatahubcontent USING gin (((data #>> '{Detail,en,Title}'::text[])) gin_trgm_ops);
-CREATE INDEX opendatahubcontent_detail_it_title_trgm_idx ON public.opendatahubcontent USING gin (((data #>> '{Detail,it,Title}'::text[])) gin_trgm_ops);
-CREATE INDEX opendatahubcontent_earthix ON public.opendatahubcontent USING gist (ll_to_earth(((((data -> 'GpsPoints'::text) -> 'position'::text) ->> 'Latitude'::text))::double precision, ((((data -> 'GpsPoints'::text) -> 'position'::text) ->> 'Longitude'::text))::double precision));
-
-```
-
-## Helpers
-
-### MetaInfo Helper
-
-If the `_Meta.Type` Value `opendatahubcontent` is right for us we don't have to make adaptions here.
-If Classname.tolower() / tablename / typename are matching nothing to modify here.
-
-### ODHTypeHelper
-
-TranslateTypeToSearchField  
-ConvertJsonRawToObject  
-TranslateTable2Type  
-TranslateTypeString2Type  
-
-
-### LicenseInfoHelper
-
-Add Here logic for assigning a license
-
-### HasLanguageHelper
-
-Add here logic if custom Language Checks should be made
-
-## KeyCloak Authorization Rules
-
-Add Endpoint to Resources!
-Add Policy
-Add the Resource in the Permission
-
-## Tryout
-
-Mark ´ContentApiCore´ as startup project.  
-Add the Postgres Connectionstring
-"ConnectionStrings": {
-    "PgConnection": "Server=SERVERURL;Port=5432;User ID=USERNAME;Password=PASSWORD;Database=DBNAME"
-  },
-
-
-STart the application
-Add a dataset with swagger
-
-```javascript
-{
-  "Source": "rudolf",
-  "Active": true,
-  "Mapping": {
-    "test": {
-      "key": "5",
-    },
-  },
-  "LicenseInfo": {
-    "License": "CC0",
-    "LicenseHolder": "string",
-    "Author": ""
-  },
-  "PublishedOn": [
-    "rudolf.net"
-  ],
-  "GpsInfo": [
-    {
-      "Gpstype": "position",
-      "Latitude": 46.48985918267802,
-      "Longitude": 11.311126990304523,
-      "Altitude": 0,
-      "AltitudeUnitofMeasure": "m"
-    }
-  ],
-  "HasLanguage": [
-    "de"
-  ],
-  "Detail": {
-    "de": {
-      "Header": "",
-      "SubHeader": "",
-      "IntroText": "",
-      "BaseText": "",
-      "Title": "TEST",
-      "AdditionalText": "",
-      "MetaTitle": "",
-      "MetaDesc": "",
-      "GetThereText": "",
-      "Language": "",      
-    },
-    }
-  }
 }
-```
