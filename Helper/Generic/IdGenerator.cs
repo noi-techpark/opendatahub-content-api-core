@@ -64,7 +64,7 @@ namespace Helper
             return odhtype switch
             {
                 Example or ExampleLinked => IDStyle.uppercase,
-                _ => throw new Exception("not known odh type")
+                _ => IDStyle.mixed
             };
         }
 
@@ -73,7 +73,7 @@ namespace Helper
             return odhtype switch
             {
                 Type _ when odhtype == typeof(Example) || odhtype == typeof(ExampleLinked) => IDStyle.uppercase,                      
-                _ => throw new Exception("not known odh type")
+                _ => IDStyle.mixed
             };
         }
 

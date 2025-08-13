@@ -505,7 +505,7 @@ Add a dataset with swagger
 
 ```javascript
 {
-  "Source": "rudolf",
+  "Source": "testsource",
   "Active": true,
   "Mapping": {
     "test": {
@@ -518,7 +518,7 @@ Add a dataset with swagger
     "Author": ""
   },
   "PublishedOn": [
-    "rudolf.net"
+    "test.net"
   ],
   "GpsInfo": [
     {
