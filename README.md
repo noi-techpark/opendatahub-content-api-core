@@ -169,7 +169,28 @@ CREATE TABLE public.sources (
 );
 ```
 
-Raw Table  
+GeoShape Table  
+needs extension PostGIS
+```sql
+CREATE TABLE public.geoshapes (
+	id varchar(50) NOT NULL,
+	country varchar(2) NULL,
+	"name" varchar(100) NULL,
+	"type" varchar NULL,
+	licenseinfo jsonb NULL,
+	meta jsonb NULL,
+	"mapping" jsonb NULL,
+	geometry public.geometry NULL,
+	"source" varchar NULL,
+	srid varchar NULL,
+	"data" jsonb GENERATED ALWAYS AS (createshapedata_4326(id::text, type::text, name::text, country::text, source::text, meta, licenseinfo, mapping, srid::text, geometry)) STORED NULL,
+	data32632 jsonb GENERATED ALWAYS AS (createshapedata_32632(id::text, type::text, name::text, country::text, source::text, meta, licenseinfo, mapping, srid::text, geometry)) STORED NULL,
+	data3857 jsonb GENERATED ALWAYS AS (createshapedata_3857(id::text, type::text, name::text, country::text, source::text, meta, licenseinfo, mapping, srid::text, geometry)) STORED NULL,
+	CONSTRAINT shapestest_pkey PRIMARY KEY (id)
+);
+```
+
+Raw Data Table  
 needs function is_valid_jsonb, calculate_access_array_rawdata
 ```sql
 CREATE TABLE public.rawdata (
@@ -189,6 +210,27 @@ CREATE TABLE public.rawdata (
 );
 CREATE INDEX idx_rawdata_typelic ON public.rawdata USING btree (type, license, sourceid, id);
 CREATE INDEX rawdata_type_idx ON public.rawdata USING btree (type);
+
+```
+
+Raw Changes Table  
+```sql
+CREATE TABLE public.rawchanges (
+	id serial4 NOT NULL,
+	"type" varchar(150) NULL,
+	datasource varchar(150) NULL,
+	editedby varchar(150) NULL,
+	editsource varchar(150) NULL,
+	sourceid varchar(150) NULL,
+	"date" timestamp NULL,
+	changes jsonb NULL,
+	license varchar(150) NULL,
+	gen_access_role _text GENERATED ALWAYS AS (calculate_access_array_rawdata(datasource::text, license::text)) STORED NULL,
+	CONSTRAINT rawchanges_pkey PRIMARY KEY (id)
+);
+CREATE INDEX rawchanges_source_ix ON public.rawchanges USING btree (datasource);
+CREATE INDEX rawchanges_sourceid_ix ON public.rawchanges USING btree (sourceid);
+CREATE INDEX rawchanges_type_ix ON public.rawchanges USING btree (type);
 
 ```
 
